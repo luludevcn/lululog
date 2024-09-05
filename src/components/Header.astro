@@ -4,9 +4,11 @@ import Navigation from './Navigation.astro';
 import ThemeIcon from './ThemeIcon.astro';
 ---
 <header>
- <nav>
+ <div class="flex flex-row-reverse justify-between ">
     <Hamburger />
     <ThemeIcon></ThemeIcon>
-   <Navigation />
+ </div>
+ <nav>
+    <Navigation />
  </nav>
 </header>

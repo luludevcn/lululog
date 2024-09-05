@@ -26,7 +26,7 @@ html {
     width: 100%;
     top: 5rem;
     left: 48px;
-    background-color: #ff9776;
+    background-color: #042231;
     display: none;
     margin: 0;
   }
@@ -34,16 +34,18 @@ html {
   .nav-links a {
     display: block;
     text-align: center;
-    padding: 10px 0;
+    padding: 6px 0;
     text-decoration: none;
     font-size: 1.2rem;
     font-weight: bold;
+    border-radius: 8px;
     text-transform: uppercase;
   }
   
   .nav-links a:hover,
   .nav-links a:focus {
-    background-color: #ff9776;
+    background-color: #dbbe7b;
+    color: #072c2a;
   }
   
   .expanded {
@@ -80,12 +82,12 @@ html {
     width: 40px;
     height: 5px;
     margin-bottom: 10px;
-    background-color: #ff9776;
+    background-color: #072c2a;
   }
   
 /* for dark */
   html.dark {
-    background-color: #0d0950;
+    background-color: #070707;
     color: #fff;
   }
   

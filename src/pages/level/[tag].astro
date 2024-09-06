@@ -30,7 +30,7 @@ const { posts } = Astro.props;
 
 <Layout title={'Lulu log\'s '.concat(tag)}>
   <main>
-    <h1 class="uppercase">logs -- {tag}</h1>
+    <h1 class="capitalize">logs -- {tag}</h1>
     <ul>
       {
         posts.map(

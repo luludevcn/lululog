@@ -7,48 +7,24 @@ const { frontmatter } = Astro.props;
 
 <Layout title={frontmatter.title}>
   <main>
-    <Card
-      href="#"
-      title="What is it"
-      body="Markdown，一种轻量级的标记语言,MDX，让你的文档更富渲染力"
-    />
-    <h1>{frontmatter.title}</h1>
-    <p>{frontmatter.pubDate.toString().slice(0, 10)}</p>
-    <p>by {frontmatter.author}</p>
-    <!-- <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} /> -->
-    <div class="tags">
-      {
-        frontmatter.tags.map((tag: any) => (
-          <p class="tag">
-            <a href={`/tags/${tag}`}>{tag}</a>
-          </p>
-        ))
-      }
+    <Card href="#" title="What is it" body={frontmatter.description} />
+    <h1 class="text-center">{frontmatter.title}</h1>
+    <div class="flex justify-between">
+      <div class="flex flex-wrap">
+        {
+          frontmatter.tags.map((tag: any) => (
+            <p class="tag mx-1 rounded px-2 py-1 border-gray-400 border-dotted text-base border">
+              <a style="color: #9ca3af;" href={`/tags/${tag}`}>{tag}</a>
+            </p>
+          ))
+        }
+      </div>
+      <div class="text-right underline">
+        {frontmatter.pubDate.toString().slice(0, 10)} by {frontmatter.author}
+      </div>
     </div>
-    <slot />
-    <Card
-      href="#"
-      title="That is it"
-      body="Markdown，一种轻量级的标记语言,MDX，让你的文档更富渲染力"
-    />
+    <div class="py-5 border-b border-gray-400">
+      <slot />
+    </div>
   </main>
 </Layout>
-
-<style>
-  a {
-    color: #686b6d;
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .tag {
-    margin: 0.25em;
-    border: dotted 1px #a1a1a1;
-    border-radius: 0.25em;
-    padding: 0.25em 0.5em;
-    font-size: 1em;
-  }
-</style>

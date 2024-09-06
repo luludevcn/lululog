@@ -1,6 +1,12 @@
 ---
-const {url, title} = Astro.props;
+const { url, title, description, pubDate } = Astro.props;
 ---
 
-
-<li><a href={url}>{title}</a></li>
+<li class="py-3 border-l-2 border-gray-400">
+    <div class="w-2 h-2 border-gray-400 rounded-md border-x-4 border-y-2 relative top-4 -left-1"></div>
+    <div class="px-3">
+        <span class="text-gray-400 mr-4">{pubDate?.toString().slice(0,10)}</span>
+        <a class="hover:text-orange-400 text-gray-300" href={url}>{title}</a>
+        <p class="text-gray-400 text-sm mt-1">{description}...</p>
+    </div>
+</li>

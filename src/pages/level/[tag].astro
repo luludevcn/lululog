@@ -1,0 +1,53 @@
+---
+import BlogPost from "../../components/BlogPost.astro";
+import Layout from "../../layouts/Layout.astro";
+
+export async function getStaticPaths() {
+  const allPosts: any = await Astro.glob("../posts/*.md*");
+  const uniqueTags = [
+    ...new Set(
+      allPosts
+        .map((post: { frontmatter: { tags: any } }) => post.frontmatter.tags)
+        .flat(),
+    ),
+  ];
+
+  return uniqueTags.map((tag: any) => {
+    const filteredPosts = allPosts.filter(
+      (post: { frontmatter: { tags: string[] } }) =>
+        post.frontmatter.tags.includes(tag),
+    );
+    return {
+      params: { tag },
+      props: { posts: filteredPosts },
+    };
+  });
+}
+
+const { tag } = Astro.params;
+const { posts } = Astro.props;
+---
+
+<Layout title={'Lulu log\'s '.concat(tag)}>
+  <main>
+    <h1 class="uppercase">logs -- {tag}</h1>
+    <ul>
+      {
+        posts.map(
+          (post: {
+            url: any;
+            frontmatter: { title: any; description: any; pubDate: any };
+          }) => (
+            <BlogPost
+              description={post.frontmatter.description}
+              pubDate={post.frontmatter.pubDate}
+              url={post.url}
+              title={post.frontmatter.title}
+            />
+          ),
+        )
+      }
+    </ul>
+  </main>
+</Layout>
+

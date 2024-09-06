@@ -13,7 +13,7 @@ const { frontmatter } = Astro.props;
       <div class="flex flex-wrap">
         {
           frontmatter.tags.map((tag: any) => (
-            <p class="tag mx-1 rounded px-2 py-1 border-gray-400 border-dotted text-base border">
+            <p class="tag mx-1 rounded px-2 py-1 border-gray-400 border-dotted capitalize text-base border">
               <a style="color: #9ca3af;" href={`/tags/${tag}`}>{tag}</a>
             </p>
           ))

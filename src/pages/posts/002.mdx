@@ -41,17 +41,17 @@ a {
 
 <a className='text-orange-300' href='https://www.tailwindcss.cn/' target='_blank'>Tailwind CSS</a>，一个精简、实用、高度可定制的css框架，相比于其他UI框架，它没有预设的组件，但提供了语义化明确的精简类名，通过一个个class的组合就可以帮助开发者快速构建一个fancy的页面。
 
-将Tailwind CSS加入你的项目，只需在项目的根目录执行
+要将Tailwind CSS加入你的项目，只需在项目的根目录执行
 
 <CodeBlock lang={'ts'} code={installCode}></CodeBlock>
 
-现在tailwindcss已经加入你的项目，并且已经初始化tailwindcss config文件，然后你就可以肆无忌惮的为你的div添加class了
+现在tailwindcss已经加入你的项目，并且已经初始化tailwindcss config文件，然后你就可以肆无忌惮的为你的div添加class了，
 
 <CodeBlock lang={'html'} code={buttonCode}></CodeBlock>
 
-更多类名及使用介绍请参考<a className='text-orange-300' href='https://www.tailwindcss.cn/docs/installation' target='_blank'>官方文档</a>
+还可以为button添加 <code className='bg-gray-200 p-2 rounded text-gray-700 italic'>border, border-gray-400, rounded</code> 以优化边框，更多类名及使用介绍请参考<a className='text-orange-300' href='https://www.tailwindcss.cn/docs/installation' target='_blank'>官方文档</a>。
 
-然而在集成tailwind CSS的过程中，出现了不少问题，在此一一列出并解决方案，供参考
+然而在集成tailwind CSS的过程中，出现了不少问题，在此一一列出并解决方案，供参考，
 
 1. **Tailwind CSS 重置所有默认样式，例如 h1, h2, h3 字体大小样式归零**
 

@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
+import myGzh from "../../public/gzh.png";
 
 const skills = [
   "HTML",
@@ -36,10 +38,10 @@ const contacts = [
   <main>
     <h1>Me</h1>
     <div class="gap-4 text-gray-400 capitalize">
-      <p>A full stack engineer,</p>
-      <p>To be React / Node follower,</p>
-      <p>Like typescript since met with java,</p>
-      <p>Hope I can share something useful with you!</p>
+      <p>一个全栈工程师</p>
+      <p>React、Nodejs追随者</p>
+      <p>因为接触过Java喜欢上了TypeScript</p>
+      <p>希望我可以分享一些对大家有用的东西</p>
     </div>
     <hr class="border-gray-400 mt-5" />
     <h1>Skills</h1>
@@ -56,18 +58,22 @@ const contacts = [
     <h1>Output</h1>
     <div class="flex flex-wrap gap-4">
       {
-        outputs.length
-          ? outputs.map((output) => (
-              <span class="flex shadow-lg p-3 text-red-400 uppercase bg-opacity-30 bg-pink-800 rounded hover:underline cursor-pointer">
-                {output.label}
-              </span>
-            ))
-          : (<p class="text-gray-400">Comming Soon ...</p>)
+        outputs.length ? (
+          outputs.map((output) => (
+            <span class="flex shadow-lg p-3 text-red-400 uppercase bg-opacity-30 bg-pink-800 rounded hover:underline cursor-pointer">
+              {output.label}
+            </span>
+          ))
+        ) : (
+          <p class="text-gray-400">Comming Soon ...</p>
+        )
       }
     </div>
     <hr class="border-gray-400 mt-5" />
     <h1>Contact</h1>
     <div class="gap-4 flex flex-wrap">
+
+
       {
         contacts.map((contact) => (
           <a
@@ -79,6 +85,9 @@ const contacts = [
           </a>
         ))
       }
+    </div>
+    <div class="mt-8">
+      <Image src={myGzh} alt="LuLu开发" width={300} />
     </div>
   </main>
 </Layout>

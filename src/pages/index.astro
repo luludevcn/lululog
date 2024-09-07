@@ -8,14 +8,21 @@ const sayHello(whois) => {
 }
 sayHello(name);
 `;
+import { slogons } from "../constants/slogons";
+const slogon = slogons[Math.floor(Math.random() * slogons.length)]
 ---
 
 <Layout title="Welcome to Lulu Dev">
 	<main>
-		<h1 class="text-gray-400">
-			Welcome to <span class="text-gradient">Lululog</span>
+		<h1
+			class="text-gray-300 leading-relaxed justify-between flex flex-wrap"
+		>
+			<span class="text-gradient font-sans">一个前端的开发日志</span><span
+				class="text-sm text-gray-400 mt-6 align-baseline"
+				>{slogon}</span
+			>
 		</h1>
-		<CodeBlock code={code} lang={'ts'}></CodeBlock>
+		<CodeBlock code={code} lang={"ts"} />
 		<ul role="list" class="link-card-grid">
 			<Card
 				href="https://docs.astro.build/"
@@ -56,5 +63,4 @@ sayHello(name);
 		gap: 2rem;
 		padding: 0;
 	}
-
 </style>

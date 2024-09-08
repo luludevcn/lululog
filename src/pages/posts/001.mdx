@@ -10,30 +10,152 @@ author: 'luludev.cn'
 tags: [ "markdown & mdx","info"]
 ---
 
-# 我的第一篇博客文章
+import CodeBlock from '../../components/CodeBlock.astro';
+export const config = `/** @type {import('tailwindcss').Config} */
+export default {
+    content: ['./src/**/*.{html,js}'],
+    theme: {
+        extend: {},
+    },
+    plugins: [],
+}`
 
- 欢迎来到我学习关于 Astro 的新博客！在这里，我将分享我建立新网站的学习历程。
+# Markdown简介
 
- ## 我做了什么
-
- 1. **安装 Astro**：首先，我创建了一个新的 Astro 项目并设置好了我的在线账号。
-
- 2. **制作页面**：然后我学习了如何通过创建新的 `.astro` 文件并将它们保存在 `src/pages/` 文件夹里来制作页面。
-
- 3. **发表博客文章**：这是我的第一篇博客文章！我现在有用 Astro 编写的页面和用 Markdown 写的文章了！
-
- ## 下一步计划
-
- 我将完成 Astro 教程，然后继续编写更多内容。关注我以获取更多信息。
+Markdown, 一种轻量级标记语言, 它应用非常简单的语法编写文本文档，并且可以转换成HTML文档。在开发过程中，Readme文档大部分由markdown编写，易写易读的特性让它在web应用上非常受青睐，论坛、博客、文档甚至电子书，都可以用它来写。
 
 
+ ## Markdown可以怎样做
+
+首先，创建一个以`.md`结尾的文件，在这里以`README.md`为例。下面列出一些常用的语法：
+
+### 使用 # 可以显示为标题，需要用空格隔开
+```
+
+    # 一级标题
+    ## 二级标题
+    ### 三级标题
+    #### 四级标题
+    ##### 五级标题
+    ###### 六级标题
+
+```
+
+# 一级标题
+## 二级标题
+### 三级标题
+#### 四级标题
+##### 五级标题
+###### 六级标题
+
+---------
+
+### 对于斜体、粗体可以用*或_表示
+```
+
+      *斜体*          _斜体_
+     **粗体**        __粗体__
+    ***粗斜体***    ___粗斜体___
+
+```
+*斜体*
+
+**粗体**
+
+***粗斜体***
+
+
+-----------
+
+### 链接需要使用方括号
+```
+
+    [这里是超链接](https://luludev.cn)
+
+```
+[这里是超链接](https://luludev.cn)
+
+------------
+
+### 图片显示需要alt文字属性和图片地址
+```
+
+    ![alt,这里写图片alt属性](这里是图片地址)
+
+```
+![扫码LuLu开发，关注我](https://www.luludev.cn/gzh.png)
+--------
+### 引用
+
+```
+
+    > 这是一段引用的文字
+
+```
+> 这是一段引用的文字
+
+
+--------
+### 列表的显示可以由数字、-号、+号、*号加上空格来显示
+```
+
+    1 这是第一步
+    2 这是第二步
+    3 这是第三步
+
+```
+
+1. 这是第一步
+2. 这是第二步   
+3. 这是第三步
+
+
+```
+
+    - 这是减号
+    + 这是加号
+    * 这是星号
+
+```
+
+- 这是减号
++ 这是加号   
+* 这是星号
+
+--------
+
+### 代码、代码块,一个反引号（`）包裹的是行内代码，三个反引号（```）包裹的是多行代码块，并且支持缩进
+```
+
+    `console.log('hello world')`
+
+```
+
+--------
+
+ ## MDX, 一个可以包含组件和脚本的魔法
+MDX是将markdown语法与JSX语法结合起来，让我们能够在需要时使用`import`、`export`、`jsx`、`{}表达式`和自定义组件，比如下面的codeBlock中使用了script, 并引用了自定义组件CodeBlock
+
+```
+
+    import CodeBlock from '../../components/CodeBlock.astro';
+    export const config = `/** @type {import('tailwindcss').Config} */
+    export default {
+        content: ['./src/**/*.{html,js}'],
+        theme: {
+            extend: {},
+        },
+        plugins: [],
+    }`
+
+
+    <CodeBlock lang={'json'} code={config}></CodeBlock>
+
+```
+它的显示如下：
+
+    <CodeBlock lang={'json'} code={config}></CodeBlock>
+
+这里包含了一些基础用法，有兴趣的可以参考<a className='text-orange-300' href='https://github.com/mdx-js/mdx' target='_blank'>官方文档</a>，查阅更多集成与使用方法
  
-# Hi there!
 
-这个 Markdown 文件将在 `your-domain.com/page-1/` 创建一个页面
-
-它可能没有什么风格，但 Markdown 确实支持：
-- **粗体** and _斜体。_
-- 列表
-- [链接](https://astro.build)
-- 等等！

@@ -28,5 +28,5 @@ export default defineConfig({
     remarkRehype: { footnoteLabel: 'Footnotes' },
     gfm: false,
   })],
-  site: 'https://luludev.cn'
+  site: 'https://www.luludev.cn'
 });

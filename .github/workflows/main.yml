@@ -69,4 +69,4 @@ jobs:
           username: ${{ secrets.REMOTE_USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
           source: "./dist/*"
-          target: "/home/lighthouse/www"
+          target: "/home/${{ secrets.REMOTE_USERNAME }}/www"

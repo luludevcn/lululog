@@ -8,7 +8,7 @@ const allPosts = await Astro.glob("./posts/*.md*");
 	<main>
 		<ul>
 			{
-				allPosts.map((post) => (
+				allPosts.toReversed().map((post) => (
 					<BlogPost description={post.frontmatter.description} pubDate={post.frontmatter.pubDate} url={post.url} title={post.frontmatter.title} />
 				))
 			}

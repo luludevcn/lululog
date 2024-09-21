@@ -1,0 +1,32 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'NodeJS开发 -- 第一个应用程序'
+author: 'luludev.cn'
+description: "NodeJS开发，安装指南，常用工具，nvm, npm, yarn, pnpm"
+pubDate: 2024-09-20
+tags: ['node', 'info']
+---
+
+import CodeBlock from '../../components/CodeBlock.astro';
+export const nodeCode = `node -v
+npm -v
+nvm list
+nvm use 18
+.
+.
+.
+`
+
+Node.js 是一个开源和跨平台的 JavaScript 运行时环境。它运行在Chrome核心V8引擎之上，为单线程非阻塞I/O.
+
+Node.js使用ECMAScript来编写服务器端代码，使会JavaScript的你无需学习其他语言即可进行服务端业务编写。
+
+Node.js针对不同平台有不同的安装方式，用户可以通过下载软件包的方式安装，由于网络原因，这里提供一个中文软件包的地址<a className='text-orange-300' href='https://nodejs.cn/download/'>NodeJS安装地址</a>
+
+还可以使用nvm, brew, apt-get等命令行方式安装Node，其中nvm是目前非常流行的Node版本管理器，你可以用它来安装多版本的Node在本机，也可以用它来切换任意版本，以适配不同的项目。
+
+另外npm, yarn, pnpm 都是NodeJS的包管理工具（node package manager）,他可以帮助我们下载其他的工具包，安装到我们的项目里供我们使用。
+
+如果安装成功了，运行试试
+
+<CodeBlock lang={'ts'} code={nodeCode}></CodeBlock>

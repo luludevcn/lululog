@@ -8,25 +8,39 @@ tags: ['node', 'info']
 ---
 
 import CodeBlock from '../../components/CodeBlock.astro';
-export const nodeCode = `node -v
-npm -v
-nvm list
-nvm use 18
-.
-.
-.
+export const nodeCode = `const { createServer } = require('node:http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  res.end('Hello NodeJS”');
+});
+
+server.listen(port, hostname, () => {
+  console.log(\`Server running at http://\${hostname}:\${port}/\`);
+});
+
 `
+export const logCode = `Server running at http://127.0.0.1:3000`
 
-Node.js 是一个开源和跨平台的 JavaScript 运行时环境。它运行在Chrome核心V8引擎之上，为单线程非阻塞I/O.
 
-Node.js使用ECMAScript来编写服务器端代码，使会JavaScript的你无需学习其他语言即可进行服务端业务编写。
+下面我们尝试通过NodeJS创建一个web服务器，当我们访问3000端口的时候服务器会返回Hello NodeJS:
 
-Node.js针对不同平台有不同的安装方式，用户可以通过下载软件包的方式安装，由于网络原因，这里提供一个中文软件包的地址<a className='text-orange-300' href='https://nodejs.cn/download/'>NodeJS安装地址</a>
-
-还可以使用nvm, brew, apt-get等命令行方式安装Node，其中nvm是目前非常流行的Node版本管理器，你可以用它来安装多版本的Node在本机，也可以用它来切换任意版本，以适配不同的项目。
-
-另外npm, yarn, pnpm 都是NodeJS的包管理工具（node package manager）,他可以帮助我们下载其他的工具包，安装到我们的项目里供我们使用。
-
-如果安装成功了，运行试试
+创建一个server.js文件，然后将下面的代码拷贝到文件里，
 
 <CodeBlock lang={'ts'} code={nodeCode}></CodeBlock>
+
+打开terminal或者常用的终端，执行node server.js服务启动了就可以看到一条log显示在终端
+
+<CodeBlock lang={'ts'} code={logCode}></CodeBlock>
+
+然后打开浏览器，输入服务的地址和端口号，http://127.0.0.1:3000， 就可以看到在页面上输出了Hello NodeJS
+
+在这段服务代码中，node:http是NodeJS的一个核心模块，为了兼容尽可能多的HTTP应用，node:http是非常底层的一个实现，它只进行流处理和消息解析。
+
+createServer可以帮助我们创建一个HTTP服务器，每次调用这个服务器的时候，都会提供两个参数，一个request请求，一个response响应，在请求的过程中，我们会根据业务逻辑对他们做相应的处理。
+
+

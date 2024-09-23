@@ -1,12 +1,67 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: 'NodeJS开发 -- npm的使用'
+title: 'NodeJS开发 -- yarn的使用'
 author: 'luludev.cn'
-description: "NodeJS开发，安装指南，常用工具，nvm, npm, yarn, pnpm"
-pubDate: 2024-09-20
+description: "NodeJS开发，安装指南，常用工具，yarn 是一个由 Facebook 发布的，用来取代npm的包管理器"
+pubDate: 2024-09-21
 tags: ['node', 'info']
 ---
 
 import CodeBlock from '../../components/CodeBlock.astro';
+export const yarnInstall = `npm install -g yarn
+`
+export const yarnVersion = `yarn --version
+`
+export const yarnInit = `yarn init
+`
+export const yarnConfig = `yarn config list
+yarn config get <key>
+yarn config delete <key>
+yarn config set <key> <value> -g
+`
+export const yarnMost = `yarn install <package-name>
+yarn add <package-name>
+yarn upgrade <package-name>
+yarn remove <package-name>
+yarn info <package-name>
+`
+export const yarnPublish = `yarn publish
+`
+export const yarnRun = `yarn run dev
+`
+export const yarnCache = `yarn cache
+`
 
 
+yarn 是一个由 Facebook 发布的，用来取代npm的包管理器。
+
+与 npm 相比，yarn 有着速度快、离线缓存的特点。
+
+1. 速度快
+npm 会等一个包完全安装完才跳到下一个包，但 yarn 会并行执行包，因此速度会快很多。
+
+Yarn 会缓存它下载的每个包，所以无需重复下载。它还能并行化操作以最大化资源利用率，安装速度之快前所未有。
+
+2. 离线缓存
+之前安装过的包会被保存进缓存目录，以后安装就直接从缓存中复制过来，这样做的本质还是会提高安装下载的速度，避免不必要的网络请求。
+
+yarn可以通过npm来安装，也可以下载安装程序
+
+<CodeBlock lang={'ts'} code={yarnInstall}></CodeBlock>
+
+yarn的常用命令有：
+
+- 查看版本号
+<CodeBlock lang={'ts'} code={yarnVersion}></CodeBlock>
+- 初始化项目
+<CodeBlock lang={'ts'} code={yarnInit}></CodeBlock>
+- 配置项
+<CodeBlock lang={'ts'} code={yarnConfig}></CodeBlock>
+- 安装、添加、移除、更新、查看依赖
+<CodeBlock lang={'ts'} code={yarnMost}></CodeBlock>
+- 发布
+<CodeBlock lang={'ts'} code={yarnPublish}></CodeBlock>
+- 运行脚本
+<CodeBlock lang={'ts'} code={yarnRun}></CodeBlock>
+- 缓存
+<CodeBlock lang={'ts'} code={yarnCache}></CodeBlock>

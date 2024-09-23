@@ -2,11 +2,13 @@
 layout: ../../layouts/MarkdownPostLayout.astro
 title: 'NodeJS开发 -- pnpm的使用'
 author: 'luludev.cn'
-description: "NodeJS开发，安装指南，常用工具，nvm, npm, yarn, pnpm"
-pubDate: 2024-09-20
+description: "NodeJS开发，安装指南，常用工具pnpm，更高效的npm"
+pubDate: 2024-09-22
 tags: ['node', 'info']
 ---
 
 import CodeBlock from '../../components/CodeBlock.astro';
 
+pnpm是performant npm的简称，比npm具有更高的性能，它通过链接和缓存的方式，解决了npm中的幽灵依赖的问题，它具有安装速度快，占用空间小的特点。
 
+在pnpm中，所有的依赖都被存放在电脑上的某个文件夹里， 不会有重复的依赖出现，它只会把最小化的差异存储起来，而其他的部分用链接代替，就好像Windows里的快捷方式。

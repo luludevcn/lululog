@@ -2,11 +2,85 @@
 layout: ../../layouts/MarkdownPostLayout.astro
 title: 'NodeJS开发 -- npm的使用'
 author: 'luludev.cn'
-description: "NodeJS开发，安装指南，常用工具，nvm, npm, yarn, pnpm"
+description: "NodeJS开发，安装指南，常用工具，NPM的全称是Node Package Manager，是一个NodeJS包管理和分发工具"
 pubDate: 2024-09-20
 tags: ['node', 'info']
 ---
 
 import CodeBlock from '../../components/CodeBlock.astro';
+export const npmVersion = `npm -v
+`
+export const npmMost = `npm list
+npm install <package-name>
+npm update <package-name>
+npm uninstall <package-name>
+`
+export const npmShow = `npm show <package-name>
+`
+export const npmRun = `npm run dev
+`
+export const npmHelp = `npm -h
+
+npm <command>
+
+Usage:
+
+npm install        install all the dependencies in your project
+npm install <foo>  add the <foo> dependency to your project
+npm test           run this project's tests
+npm run <foo>      run the script named <foo>
+npm <command> -h   quick help on <command>
+npm -l             display usage info for all commands
+npm help <term>    search for help on <term> (in a browser)
+npm help npm       more involved overview (in a browser)
+
+All commands:
+
+    access, adduser, audit, bugs, cache, ci, completion,
+    config, dedupe, deprecate, diff, dist-tag, docs, doctor,
+    edit, exec, explain, explore, find-dupes, fund, get, help,
+    help-search, hook, init, install, install-ci-test,
+    install-test, link, ll, login, logout, ls, org, outdated,
+    owner, pack, ping, pkg, prefix, profile, prune, publish,
+    query, rebuild, repo, restart, root, run-script, sbom,
+    search, set, shrinkwrap, star, stars, start, stop, team,
+    test, token, uninstall, unpublish, unstar, update, version,
+    view, whoami
+`
+
+export const npmrc = `registry=https://registry.npmjs.org/
+strict-ssl=false
+_authToken=***
+proxy=http://proxy.example.com/
+`
+
+
+
+
+NPM的全称是Node Package Manager，是一个NodeJS包管理和分发工具，已经成为了非官方的发布Node模块（包）的标准。它不需要单独安装，在安装 Node.js 时，就会一起安装 npm。
+
+可以用这样的命令查看当前npm的版本
+
+<CodeBlock lang={'ts'} code={npmVersion}></CodeBlock>
+
+## npm的常见命令有
+
+1. 查看版本
+<CodeBlock lang={'ts'} code={npmVersion}></CodeBlock>
+2. 查看、安装、更新、删除依赖
+<CodeBlock lang={'ts'} code={npmMost}></CodeBlock>
+3. 查看包信息
+<CodeBlock lang={'ts'} code={npmShow}></CodeBlock>
+4. 运行脚本
+<CodeBlock lang={'ts'} code={npmRun}></CodeBlock>
+5. 查看更多命令
+<CodeBlock lang={'ts'} code={npmHelp}></CodeBlock>
+6. npm配置文件为.npmrc，一般在根目录下，常见的配置项有
+<CodeBlock lang={'ts'} code={npmrc}></CodeBlock>
+registry是指npm包的仓库地址，我们可以从官方地址切换到淘宝的镜像，可以提高包的下载速度。
+proxy是代理服务器设置。
+strict-ssl是为了验证ssl证书，为了安全起见，应该将其打开。
+authToken是用来访问私有仓库的令牌。
+
 
 

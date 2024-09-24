@@ -4,7 +4,7 @@ const allPosts = await Astro.glob("../posts/*.md*");
 const tags = [...new Set(allPosts.map((post) => post.frontmatter.tags).flat())];
 ---
 
-<Layout title="Lulu's Levels">
+<Layout title="专栏分类">
   <main>
   <div class="flex flex-wrap gap-4">
     {

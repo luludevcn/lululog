@@ -17,7 +17,7 @@ export default defineConfig({
   integrations: [react(), tailwind(), sitemap({
     // filter: (page) => page !== 'https://stargazers.club/secret-vip-lounge/',
     // customPages: ['https://stargazers.club/external-page', 'https://stargazers.club/external-page2'],
-    changefreq: 'weekly',
+    changefreq: 'daily',
     priority: 0.9,
     lastmod: new Date(),
   }), mdx({

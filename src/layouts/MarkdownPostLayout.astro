@@ -5,7 +5,7 @@ import Layout from "./Layout.astro";
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={frontmatter.title}>
+<Layout title={frontmatter.title} keywords={frontmatter.keywords} description={frontmatter.description}>
   <main>
     <Card href="#" title="What is it" body={frontmatter.description} />
     <h1 class="text-center">{frontmatter.title}</h1>

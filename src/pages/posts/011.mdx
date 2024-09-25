@@ -1,0 +1,46 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'NodeJS开发 -- NodeJS的非阻塞I/O, 分心多用'
+author: 'luludev.cn'
+keywords: 'NodeJS, 非阻塞I/O, 异步, fs'
+description: "NNode.js 的设计基于非阻塞I/O模型, 非常适合作为Web服务器和构建实时聊天程序等I/O密集型的应用"
+pubDate: 2024-09-18
+tags: ['node', 'info']
+---
+
+import CodeBlock from '../../components/CodeBlock.astro';
+export const nodeCode = `const fs = require('fs');
+// 异步读取文件
+fs.readFile('example1.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log(1, data);
+});
+
+fs.readFile('example2.txt', 'utf8', (err, data) => {
+  if (err) throw err;
+  console.log(2, data);
+});
+
+console.log('文件读取中...');
+`
+
+export const consoleCode = `文件读取中...
+// 顺序取决于哪一个文件先读取完成
+1 example1的内容
+2 example2的内容
+// 或者
+2 example2的内容
+1 example1的内容
+`
+
+Node.js 的设计基于非阻塞I/O模型，意味着它在执行I/O操作时，Node.js 会为所有的请求创建队列，当一个请求调用完成时，事件循环会把该请求放入队列中，并执行相应的回调函数。
+
+这样可以使Node在单线程中处理大量的并发连接，而不会像传统的服务器那样阻塞。所以NodeJS非常适合作为Web服务器和构建实时聊天程序等I/O密集型的应用。
+
+<CodeBlock lang={'ts'} code={nodeCode}></CodeBlock>
+
+在上面的例子中，readFile是NodeJS fs模块的异步函数，不会去等待文件读取完成，NodeJS会继续执行后边的读取任务和日志输出。当文件读取完成之后，NodeJS才会去调用回调函数，在控制台输出文件内容。
+
+所以，在控制台我们看到的输出应该是
+
+<CodeBlock lang={'ts'} code={consoleCode}></CodeBlock>

@@ -9,6 +9,7 @@ const sayHello(whois) => {
 sayHello(name);
 `;
 import { slogons } from "../constants/slogons";
+const allPosts = await Astro.glob("./posts/*.md*");
 ---
 
 <Layout title="开源开发">
@@ -22,6 +23,15 @@ import { slogons } from "../constants/slogons";
 			>
 		</h1>
 		<CodeBlock code={code} lang={"ts"} />
+		<div>最近更新</div>
+		<div class="bg-slate-300 rounded p-1 pl-5 pr-5 mt-4 mb-4">
+			{
+				allPosts.toReversed().slice(0,3).map((post) => (
+					<p class="flex justify-between"><a class="text-gray-800 font-medium hover:text-yellow-500" href={post.url}> # {post.frontmatter.title}</a><span class="text-gray-500">{post.frontmatter.pubDate?.toString().slice(0,10)}</span></p>
+				))
+			}
+			
+		</div>
 		<div>我的记录</div>
 		<ul role="list" class="link-card-grid">
 			<Card
@@ -38,17 +48,17 @@ import { slogons } from "../constants/slogons";
 		<div>我的产品</div>
 		<ul role="list" class="link-card-grid">
 			<Card
-				href="/level/node/"
+				href="/products/"
 				title="浏览器扩展插件"
 				body="Explore a galaxy of community-built starter themes."
 			/>
 			<Card
-				href="/level/node/"
+				href="/products/"
 				title="桌面工具"
 				body="Explore a galaxy of community-built starter themes."
 			/>
 			<Card
-				href="/level/node/"
+				href="/products/"
 				title="常用web工具"
 				body="Explore a galaxy of community-built starter themes."
 			/>

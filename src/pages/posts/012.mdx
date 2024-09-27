@@ -1,0 +1,72 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: '七分钟读懂Git的使用方法'
+author: 'luludev.cn'
+keywords: 'git, 版本控制'
+description: "Git是一个高效的版本控制软件，常见使用方法有"
+pubDate: 2024-09-25
+tags: ['git', 'info']
+---
+
+import CodeBlock from '../../components/CodeBlock.astro';
+export const gitclone = `git clone https://github.com/******/******
+Cloning into '******'...
+remote: Enumerating objects: 42, done.
+remote: Total 42 (delta 0), reused 0 (delta 0), pack-reused 42
+Unpacking objects: 100% (42/42), done.
+`
+
+export const gitinit = `git init
+`
+
+export const gitcli = `// 克隆远端的项目到本地
+git clone
+// 初始化本地仓库
+git init
+// 将文件添加到暂存区
+git add
+// 将暂存区的文件添加到本地版本库中
+git commit
+// 将代码上传到远端
+git push
+// 拉取远端代码
+git pull
+// 获取远端代码库
+git fetch
+// 切换分支
+git checkout
+// 切换分支
+git switch
+// 查看提交记录
+git log
+// 查看当前分支状态
+git status
+// 查看当前文件更改
+git diff
+// pick commit到当前分支
+git cherry-pick
+// 远端仓库相关操作
+git remote
+// 切换分支
+git branch
+// 合并代码
+git merge
+`
+
+Git是一个高效的版本控制软件，最初是为管理Linux内核项目，如今成为时下最流行的分布式版本管理系统。它既能管理小型的个人开发者项目，也能管理像Linux系统开发这样大的工程。
+
+通常我们会将远程的仓库克隆下来
+
+<CodeBlock lang={'ts'} code={gitclone}></CodeBlock>
+
+或者在本地初始化，将本地的项目推送到远端
+
+<CodeBlock lang={'ts'} code={gitinit}></CodeBlock>
+
+这样我们在本地的版本库就创建完成了。
+
+git的一些常见命令有：
+
+<CodeBlock lang={'ts'} code={gitcli}></CodeBlock>
+
+同时也有很多桌面软件可以帮助我们实现可视化操作，常用的有 <a className='text-orange-300' href='https://www.sourcetreeapp.com/' target='_blank'>SourceTree</a> 和 <a className='text-orange-300' href='https://github.com/' target='_blank'>Github Desktop</a>。

@@ -16,7 +16,6 @@ import {Image} from 'astro:assets';
 import lcoalImage1 from '../../../public/004-1.png';
 import lcoalImage2 from '../../../public/004-2.png'; 
 import lcoalImage3 from '../../../public/004-3.png';
-import lcoalImage4 from '../../../public/004-4.png'; 
 export const installCode = `// MacOS
 brew install node
 // ubantu
@@ -28,8 +27,6 @@ nginx -v
 // nginx启停
 sudo systemctl start/stop nginx
 `
-
-# 关于ubuntu, linux服务器搭建静态博客网站的常用命令
 
 在ubuntu, linux, macos等系统中开发是非常爽的，然而它的桌面生态却不像Windows系统那样强大。
 
@@ -43,7 +40,7 @@ sudo systemctl start/stop nginx
 
 当我登录到腾讯云的ubuntu服务器的时候，看到的就是这样的画面
 
-<Image src={lcoalImage1} alt="Terminal" width={400} loading="lazy" />
+<Image src={lcoalImage1} alt="Terminal初始画面" width={400} loading="lazy" />
 
 而我现在要做的就是为我的服务安装nodejs18、Nginx，在macOS里安装会用到Homebrew,它是Mac平台下的软件包管理工具，可以安装、卸载、更新、搜索、查看相关软件，而在uuntu系统里，我将用到的是apt-get命令
 
@@ -51,7 +48,7 @@ sudo systemctl start/stop nginx
 
 安装成功后查看NodeJS版本
 
-<Image src={lcoalImage2} alt="Terminal" width={400} loading="lazy" />
+<Image src={lcoalImage2} alt="Terminal查看node版本" width={400} loading="lazy" />
 
 一般对于静态web服务器，Nginx代理分发性能要比Tomcat好，所以我准备安装nginx作为静态博客网站的代理
 
@@ -61,7 +58,7 @@ sudo systemctl start/stop nginx
 
 <CodeBlock lang={'ts'} code={`vi /etc/nginx/nginx.config`} />
 
-<Image src={lcoalImage3} alt="Terminal" width={400} loading="lazy" />
+<Image src={lcoalImage3} alt="Terminal nginx配置文件" width={400} loading="lazy" />
 
 www-data通常会是php, apache, nginx 等服务的用户，然而它的权限没有root高，当我更改web服务的根目录之后，我的首页就不能访问了，403或者404。
 

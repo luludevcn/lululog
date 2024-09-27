@@ -12,7 +12,7 @@ import { slogons } from "../constants/slogons";
 const allPosts = await Astro.glob("./posts/*.md*");
 ---
 
-<Layout title="开源开发">
+<Layout title="Luludev 开发日记">
 	<main>
 		<h1
 			class="text-gray-300 leading-relaxed justify-between flex flex-wrap"
@@ -49,18 +49,8 @@ const allPosts = await Astro.glob("./posts/*.md*");
 		<ul role="list" class="link-card-grid">
 			<Card
 				href="/products/"
-				title="浏览器扩展插件"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="/products/"
-				title="桌面工具"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="/products/"
 				title="常用web工具"
-				body="Explore a galaxy of community-built starter themes."
+				body="开发过程中常用的一些工具及插件"
 			/>
 		</ul>
 		<div>我的世界</div>

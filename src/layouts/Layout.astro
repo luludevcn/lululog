@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { title='开源开发',keywords='全栈开发,Nodejs,react,typescript,css',description='前端,全栈开发,Nodejs,react,angular,javascript,typescript,css,html' } = Astro.props;
-
+const isProd = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -34,23 +34,22 @@ const { title='开源开发',keywords='全栈开发,Nodejs,react,typescript,css'
 			content="SGbZh_3h9aOC3p6NGDz4XEe_aNk_5WTqybu4GCGVsK4"
 		/>
 
-<script is:inline>
-var _hmt = _hmt || [];
-(function() {
-  var hm = document.createElement("script");
-  hm.src = "https://hm.baidu.com/hm.js?5df9ac8c5f8fb6d3917fe51154e3965a";
-  var s = document.getElementsByTagName("script")[0]; 
-  s.parentNode.insertBefore(hm, s);
-})();
-</script>
+{isProd && <script is:inline>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "https://hm.baidu.com/hm.js?5df9ac8c5f8fb6d3917fe51154e3965a";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+	<script
+		async
+		src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9382467735244088"
+		crossorigin="anonymous"
+		is:inline></script>}
 
 
-
-		<script
-			async
-			src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9382467735244088"
-			crossorigin="anonymous"
-			is:inline></script>
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
@@ -65,7 +64,7 @@ var _hmt = _hmt || [];
 		import "../script/menu";
 	</script>
 
-	<!-- Google tag (gtag.js) -->
+{isProd && 	<!-- Google tag (gtag.js) -->
 	<script
 		is:inline
 		async
@@ -79,4 +78,6 @@ var _hmt = _hmt || [];
 
 		gtag("config", "G-ZC2F92N8GX");
 	</script>
+}
+
 </html>

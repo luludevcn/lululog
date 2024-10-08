@@ -4,8 +4,8 @@ import Header from "../components/Header.astro";
 import "../styles/global.css";
 interface Props {
 	title: string;
-	keywords: string
-	description: string
+	keywords?: string;
+	description?: string;
 }
 
 const { title='开源开发',keywords='全栈开发,Nodejs,react,typescript,css',description='前端,全栈开发,Nodejs,react,angular,javascript,typescript,css,html' } = Astro.props;

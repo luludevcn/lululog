@@ -19,10 +19,7 @@ const skills = [
 ];
 
 const outputs: any[] = [
-  // { label: "gitlines", target: "#" },
-  // { label: "pwd", target: "#" },
-  // { label: "meow", target: "#" },
-  // { label: "start", target: "#" },
+  { label: "Json Formatter", target: "/tools/jsonformatter" },
 ];
 
 const contacts = [
@@ -60,9 +57,13 @@ const contacts = [
       {
         outputs.length ? (
           outputs.map((output) => (
-            <span class="flex shadow-lg p-3 text-red-400 uppercase bg-opacity-30 bg-pink-800 rounded hover:underline cursor-pointer">
-              {output.label}
-            </span>
+          <a
+            href={output.target}
+            target="_blank"
+            class="flex shadow-lg p-3 text-gray-400 bg-opacity-20 bg-pink-800 rounded hover:underline"
+          >
+            {output.label}
+          </a>
           ))
         ) : (
           <p class="text-gray-400">Comming Soon ...</p>

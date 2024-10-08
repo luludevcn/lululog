@@ -1,17 +1,29 @@
 ---
 import Layout from "../layouts/Layout.astro";
-
 ---
 
-<Layout title="关于我的产品" description="这里将收集我在开发过程中实现的一些产品工具，以作分享" keywords="工具，tools，截图，json format, 格式化">
+<Layout
+  title="关于我的产品"
+  description="这里将收集我在开发过程中实现的一些产品工具，以作分享"
+  keywords="工具，tools，截图，json format, 格式化"
+>
   <main>
     <div class="flex flex-wrap gap-4">
-      <span class="flex shadow-lg p-3 text-gray-400 capitalize bg-opacity-20 bg-pink-800 rounded">
+      <span
+        class="flex shadow-lg p-3 text-gray-400 capitalize bg-opacity-20 bg-pink-800 rounded"
+      >
         <a href="https://github.com/luludevcn">Github</a>
       </span>
-          <span class="flex shadow-lg p-3 text-gray-400 capitalize bg-opacity-20 bg-pink-800 rounded">
-            <a href="https://www.luludev.cn">个人网站</a>
-          </span>
+      <span
+        class="flex shadow-lg p-3 text-gray-400 capitalize bg-opacity-20 bg-pink-800 rounded"
+      >
+        <a href="/">个人网站</a>
+      </span>
+      <span
+        class="flex shadow-lg p-3 text-gray-400 capitalize bg-opacity-20 bg-pink-800 rounded"
+      >
+        <a href="/tools/jsonformatter">Json Formatter</a>
+      </span>
     </div>
   </main>
 </Layout>

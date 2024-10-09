@@ -92,7 +92,7 @@ export const JsonFormatter = () => {
 
     return (
         <div style={{ padding: '20px' }}>
-            <h2>JSON Formatter</h2>
+            <h1>JSON Formatter</h1>
 
             <div>
                 请选择你要格式化的json文件： <input type="file" onChange={handleFileUpload} />

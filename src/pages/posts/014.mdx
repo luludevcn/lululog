@@ -1,0 +1,90 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'Typescript, 插上类型翅膀的Javascript'
+author: 'luludev.cn'
+keywords: 'typescript, javascript, ts, tsc'
+description: "世人说Typescript是JavaScript的超集，实际上是赋予类型的JavaScript"
+pubDate: 2024-10-14
+tags: ['Typescript', 'Info']
+---
+
+import CodeBlock from '../../components/CodeBlock.astro';
+
+export const checkClass = `const box = { width: 10, height: 15 };
+const size = box.width * box.heigth;
+
+Property 'heigth' does not exist on type '{ width: number; height: number; }'.
+Did you mean 'height'?
+`
+
+export const defineClass = `interface User {
+  name: string;
+  age: number;
+}
+ 
+class UserAccount {
+  name: string;
+  age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+}
+ 
+const user: User = new UserAccount("David", 10);`
+
+export const installTS = `npm install -g typescript`
+
+export const helloTS = `interface User {
+name: string;
+age: number;
+}
+
+const helloUser(user: User) {
+    console.log(\`Hello, I am \${user.name}, \${user.age} years old.\`)
+}
+
+helloUser({name: "Jane", age: 13});
+`
+
+export const tsCode = `tsc hello.ts`
+
+export const nodeCode = `node hello.js
+
+// Hello, I am Jane, 13 years old.
+`
+
+## Typescript简介
+
+2012年，微软又做了一件大事，它在JavaScript的基础上添加了类型定义，Typescript自此而生。
+
+它包含了很多ECMAScript的特性，通过Typescript编译器TSC,或者Bable编译成JavaScript，再运行在浏览器或者Node服务器。
+
+由于JavaScript开发和维护上的的局限性，比较难胜任一些大型项目，Typescript改变了这一现状，现在基于typescript的项目，框架越来越多。
+
+在Typescript里，你不但可以定义类型，它还可以帮你检查类型，还能帮你推断类型。
+
+<CodeBlock lang={'ts'} code={defineClass}></CodeBlock>
+
+<CodeBlock lang={'ts'} code={checkClass}></CodeBlock>
+
+## 安装Typescript
+
+我们可以通过npm来安装Typescript,使用下面的命令全局安装Typescript
+
+<CodeBlock lang={'ts'} code={installTS}></CodeBlock>
+
+## 编写第一个typescript文件
+
+在编辑器里创建一个新的文件hello.ts, 并且编写下面的程序
+
+<CodeBlock lang={'ts'} code={helloTS}></CodeBlock>
+
+然而这样的文件是不能直接在浏览器端执行的，需要编译成JavaScript文件，我们可以用自带的编译器TSC来把它编译成js文件
+
+<CodeBlock lang={'ts'} code={tsCode}></CodeBlock>
+
+然后在同目录下就出现了一个新的文件hello.js，可以在node终端执行
+
+<CodeBlock lang={'ts'} code={nodeCode}></CodeBlock>

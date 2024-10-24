@@ -1,0 +1,27 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'NodeJS开发 -- stream流的使用'
+author: 'luludev.cn'
+keywords: 'NodeJS, fs文件系统, stream'
+description: "Stream是Nodejs一种高效的文件处理操作，它允许我们可以以流的方式读写数据，从而大大提高服务效率"
+pubDate: 2024-10-23
+tags: ['node', 'info']
+---
+
+import CodeBlock from '../../components/CodeBlock.astro';
+export const importCode = `const fs = require('node:fs');
+// 或者
+import * as fs from 'node:fs'
+`
+
+Stream是Nodejs一种高效的文件处理操作，它允许我们可以以流的方式读写数据，无需一次性将所有数据加载到内存中，可以分块处理，从而大大提高服务效率，对于大文件和数据流尤其显著。
+
+NodeJS中的stream流主要分为四种类型：**Readable**,**Writable**,**Duplex**,**Transform**. 而在流中也有四种事件会被出发：**data**,**end**,**error**,**finish**.
+
+### 读取文件流
+
+
+### 写入文件流
+
+
+### 管道流

@@ -1,0 +1,68 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'NodeJS开发 -- fs文件系统的使用'
+author: 'luludev.cn'
+keywords: 'NodeJS, fs文件系统, stream'
+description: "NodeJS开发，fs文件系统的常见使用方法"
+pubDate: 2024-10-22
+tags: ['node', 'info']
+---
+
+import CodeBlock from '../../components/CodeBlock.astro';
+export const importCode = `const fs = require('node:fs');
+// 或者
+import * as fs from 'node:fs'
+`
+export const operationCode = `// 读取文件
+fs.readFile('file.txt', 'utf8', (err, data) => {...});
+// 写入文件
+fs.writeFile('file.txt', 'new line has been written.', (err) => {...});
+// 追加写入文件
+fs.appendFile('file.txt', 'new line has been appended.', (err) => {...});
+// 删除文件
+fs.unlink('file.txt', (err) => {...});
+// 重命名文件
+fs.rename('file.txt', 'template.txt', (err) => {...});
+// 复制文件
+fs.copyFile('./file.txt', './fileBase.txt');
+// 创建目录
+fs.mkdir('testDir', (err) => {...});
+// 读取目录
+fs.readdir('testDir', (err, files) => {...});
+// 删除目录
+fs.rmdir('testDir', (err) => {...});
+`
+
+export const syncCode = `// 同步读取文件
+const result = fs.readFileSync('file.txt', 'utf8);
+// 同步写入文件
+const result = fs.writeFileSync('file.txt', 'new line has been written.');
+// 同步重命名文件
+const result = fs.renameSync('file.txt', 'template.txt');
+// 同步复制文件
+const result = fs.copyFileSync('./file.txt', './fileBase.txt');
+// 同步创建目录
+const result = fs.mkdirSync('testDir');
+// 同步读取目录
+const result = fs.readdirSync('testDir');
+// 同步删除目录
+const result = fs.rmdirSync('testDir');
+`
+
+
+FS (file system)，作为nodejs的内置模块，帮我们实现了一个比较完整的文件系统，包括对文件的读写，增减，移动，复制等操作。
+
+## 引入fs模块
+
+<CodeBlock lang={'ts'} code={importCode}></CodeBlock>
+
+## 基本的文件操作
+
+<CodeBlock lang={'ts'} code={operationCode}></CodeBlock>
+
+## 同步与异步
+
+在node fs文件系统中，所有的方法都支持同步与异步操作，所谓的同步操作，就是在以上方法后面添加Sync，便可直接返回结果，不存在回调函数，但是会出现阻塞，影响性能体验。
+
+<CodeBlock lang={'ts'} code={syncCode}></CodeBlock>
+

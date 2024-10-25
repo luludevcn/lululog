@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: 'NodeJS开发 -- stream流的使用'
+title: 'NodeJS开发 -- Stream流的使用'
 author: 'luludev.cn'
 keywords: 'NodeJS, fs文件系统, stream'
 description: "Stream是Nodejs一种高效的文件处理操作，它允许我们可以以流的方式读写数据，从而大大提高服务效率"
@@ -9,19 +9,77 @@ tags: ['node', 'info']
 ---
 
 import CodeBlock from '../../components/CodeBlock.astro';
-export const importCode = `const fs = require('node:fs');
-// 或者
-import * as fs from 'node:fs'
+export const readableStream = `const fs = require('fs');
+
+const readStream = fs.createReadStream("./file.txt", "utf-8");
+
+readStream.on("data", (chunk) => {
+    console.log("chunk", chunk);
+})
+
+readStream.on("end", () => {
+    console.log("read end");
+})
+
+readStream.on("error", (err) => {
+    console.log(read err);
+})
 `
+
+export const writableStream = `const fs = require('fs');
+
+const writeStream = fs.createWriteStream("./file.txt", "utf-8");
+
+writeStream.write("line 1: hello world");
+
+writeStream.write("line 2: hello ts");
+
+writeStream.write("line 3: hello anything");
+
+writeStream.end();
+
+writeStream.on('error', (err) => {
+  console.error('写入流发生错误:', err);
+});`
+
+export const pippStream = `a.pipe(b).pipe(c).pipe(d)`
+
 
 Stream是Nodejs一种高效的文件处理操作，它允许我们可以以流的方式读写数据，无需一次性将所有数据加载到内存中，可以分块处理，从而大大提高服务效率，对于大文件和数据流尤其显著。
 
-NodeJS中的stream流主要分为四种类型：**Readable**,**Writable**,**Duplex**,**Transform**. 而在流中也有四种事件会被出发：**data**,**end**,**error**,**finish**.
+NodeJS中的stream流主要分为四种类型：**Readable 可读流**、 **Writable 可写流**、 **Duplex 可读可写双工流**、 **Transform 可读可写转化流**.
 
 ### 读取文件流
 
+createReadStream是用来创建一个读取文件流，监听data, end, error事件，可以实现对文件读取的操作
+
+<CodeBlock lang={'ts'} code={readableStream}></CodeBlock>
 
 ### 写入文件流
 
+createWriteStream是用来创建一个写入文件流，具有write，end等操作
 
-### 管道流
+<CodeBlock lang={'ts'} code={writableStream}></CodeBlock>
+
+
+### 可读可写双工流
+
+Duplex 双工流是一种既可读又可写的流类型。我们可以通过创建双工流来实现同时读取和写入数据的功能。比较典型的例子有
+
+* TCP sockets 处理用户与server之前的通信连接
+* zlib streams 实现文件的压缩与解压缩
+* crypto streams 实现文件的加密解密功能
+
+### 可读可写转化流
+
+Transform 也是一种Duplex 流，但是它的输入输出是关联的，比如
+
+* zlib streams
+* crypto streams
+
+### 关于流的传输pipe
+
+Pipe 是让流运动起来的管道，它可以将一个可读流传输到另一个可写里流里，让多个流用管道联通起来
+
+<CodeBlock lang={'ts'} code={pippStream}></CodeBlock>
+

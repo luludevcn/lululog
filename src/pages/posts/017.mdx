@@ -1,0 +1,214 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'TypeScript的基本用法'
+author: 'luludev.cn'
+keywords: 'ts, TypeScript'
+description: "TypeScript 是 JavaScript 的超集，它添加了类型支持，可以帮助开发者在编写代码时获得更好的提示和报错机制。"
+pubDate: 2024-10-27
+tags: ['Typescript', 'info']
+---
+
+# TypeScript 教程
+
+TypeScript 是 JavaScript 的超集，它添加了类型支持，可以帮助开发者在编写代码时获得更好的提示和报错机制。下面是学习 TypeScript 的基本步骤和一些重要概念。
+
+## 目录
+1. [什么是 TypeScript？](#什么是-typescript)
+2. [安装 TypeScript](#安装-typescript)
+3. [基础语法](#基础语法)
+4. [类型系统](#类型系统)
+5. [接口与类型](#接口与类型)
+6. [类与继承](#类与继承)
+7. [泛型](#泛型)
+8. [模块与命名空间](#模块与命名空间)
+9. [编译配置 (tsconfig)](#编译配置-tsconfig)
+10. [实战示例](#实战示例)
+
+## 什么是 TypeScript？
+
+TypeScript 是一种为 JavaScript 添加了静态类型检查的编程语言，编译后可以生成标准的 JavaScript 文件。它的主要优点是：
+
+- 提供更强的类型支持，减少运行时错误。
+- 支持面向对象编程特性，如类、接口、泛型等。
+- 兼容所有 JavaScript 库和代码。
+
+## 安装 TypeScript
+
+### 安装 Node.js 和 npm
+TypeScript 依赖于 Node.js。确保你已经安装了 Node.js 和 npm。
+
+```bash
+# 检查 Node.js 和 npm 是否已安装
+node -v
+npm -v
+```
+
+### 安装 TypeScript
+在命令行中运行以下命令来安装 TypeScript：
+
+```bash
+npm install -g typescript
+```
+
+### 编译 TypeScript 文件
+创建一个名为 `index.ts` 的文件，然后运行以下命令将其编译为 JavaScript：
+
+```bash
+tsc index.ts
+```
+
+## 基础语法
+
+### 变量声明
+TypeScript 使用 `let` 和 `const` 关键字来声明变量：
+
+```typescript
+let name: string = 'John';
+const age: number = 30;
+```
+
+### 基本类型
+常见的类型有：`string`、`number`、`boolean`、`array`、`tuple`、`enum`、`any` 等。
+
+```typescript
+let isDone: boolean = false;
+let decimal: number = 6;
+let color: string = 'blue';
+let list: number[] = [1, 2, 3];
+let tuple: [string, number] = ['hello', 10];
+```
+
+## 类型系统
+
+### 类型注解
+TypeScript 允许在变量声明时为变量指定类型。
+
+```typescript
+let username: string = 'Alice';
+```
+
+### 类型推断
+当你不给变量指定类型时，TypeScript 会根据赋值内容进行类型推断。
+
+```typescript
+let count = 5;  // count 的类型自动被推断为 number
+```
+
+### 联合类型
+联合类型可以表示多种类型的值。
+
+```typescript
+let identifier: string | number;
+identifier = 'ABC123';
+identifier = 123;
+```
+
+## 接口与类型
+
+### 接口
+接口用于定义对象的结构。
+
+```typescript
+interface Person {
+    name: string;
+    age: number;
+    greet(): void;
+}
+
+const person: Person = {
+    name: 'Alice',
+    age: 25,
+    greet() {
+        console.log('Hello!');
+    }
+};
+```
+
+### 类型别名
+类型别名和接口类似，但它们可以用于任何类型。
+
+```typescript
+type ID = string | number;
+let userId: ID;
+```
+
+## 类与继承
+
+TypeScript 支持 ES6 类，并且可以使用访问修饰符（`public`、`private`、`protected`）控制属性的访问权限。
+
+```typescript
+class Animal {
+    constructor(public name: string) {}
+    
+    move(distance: number) {
+        console.log(`${this.name} moved ${distance}m.`);
+    }
+}
+
+class Dog extends Animal {
+    bark() {
+        console.log('Woof! Woof!');
+    }
+}
+```
+
+## 泛型
+
+泛型提供了在编写函数、接口或类时传递类型参数的功能，以便重用代码。
+
+```typescript
+function identity<T>(arg: T): T {
+    return arg;
+}
+
+let output = identity<string>('Hello');
+```
+
+## 模块与命名空间
+
+模块是将代码划分为多个文件的方式，可以更好地管理代码。
+
+```typescript
+// utils.ts
+export function add(a: number, b: number): number {
+    return a + b;
+}
+
+// main.ts
+import { add } from './utils';
+console.log(add(2, 3));
+```
+
+## 编译配置 (tsconfig)
+
+在项目根目录创建 `tsconfig.json` 文件以配置 TypeScript 编译选项：
+
+```json
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true
+  }
+}
+```
+
+运行 `tsc` 时会自动读取 `tsconfig.json` 中的配置。
+
+## 实战示例
+
+### 创建一个简单的类型安全函数
+
+以下是一个类型安全的计算函数示例：
+
+```typescript
+function calculateArea(width: number, height: number): number {
+    return width * height;
+}
+
+console.log(calculateArea(5, 10));  // 输出：50
+```
+
+---
+
+通过以上教程，你已经掌握了 TypeScript 的基本语法和使用方式。可以在项目中使用 TypeScript 来提高代码的可靠性和可维护性。

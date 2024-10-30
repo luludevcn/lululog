@@ -1,0 +1,181 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'TSConfig -- TypeScript 配置文件介绍'
+author: 'luludev.cn'
+keywords: 'tsconfig, typescript, tsc, ts, compilerOptions'
+description: "tsconfig.json 文件是 TypeScript 项目中的配置文件，用于指定 TypeScript 编译器（`tsc`）的编译选项和项目设置。通过配置 `tsconfig.json`，可以控制 TypeScript 编译的行为，例如目标环境、模块系统、类型检查严格性等"
+pubDate: 2024-10-28
+tags: ['Typescript', 'info']
+---
+
+`tsconfig.json` 文件是 TypeScript 项目中的配置文件，用于指定 TypeScript 编译器（`tsc`）的编译选项和项目设置。通过配置 `tsconfig.json`，可以控制 TypeScript 编译的行为，例如目标环境、模块系统、类型检查严格性等。
+
+## tsconfig.json 基本结构
+
+一个基本的 `tsconfig.json` 文件结构基本如下：
+
+```json
+{
+  "compilerOptions": {
+    // 编译器选项
+  },
+  "include": [
+    // 包含的文件或文件夹
+  ],
+  "exclude": [
+    // 排除的文件或文件夹
+  ],
+  "files": [
+    // 要编译的文件列表
+  ]
+}
+```
+
+- `compilerOptions`：配置编译器的各种选项。
+- `include`：指定要包含的文件或文件夹，支持通配符。
+- `exclude`：指定要排除的文件或文件夹。
+- `files`：直接指定要编译的文件列表。
+
+
+## 常用的 compilerOptions 配置项
+
+### 1. 基础选项
+
+`target`：指定要编译的 JavaScript 版本。例如 `es5`、`es6`（也可写为 `es2015`）、`esnext`。
+
+```json
+"target": "es6"
+```
+
+`module`：指定生成的模块系统。例如 `commonjs`、`es6`、`amd` 等。
+
+```json
+"module": "commonjs"
+```
+
+`lib`：指定编译时包含的库。可以是 `es6`、`dom` 等。
+
+```json
+"lib": ["es6", "dom"]
+```
+
+### 2. 严格性检查
+
+`strict`：启用所有严格检查选项的总开关。
+
+`noImplicitAny`：不允许隐式的 `any` 类型。
+
+```json
+"noImplicitAny": true
+```
+
+`strictNullChecks`：启用严格的空值检查。
+
+```json
+"strictNullChecks": true
+```
+
+`strictFunctionTypes`：启用对函数参数的严格检查。
+
+`alwaysStrict`：在所有编译输出文件中启用严格模式（`"use strict"`）。
+
+### 3. 输出控制
+
+`outDir`：指定输出文件的目录。
+
+```json
+"outDir": "./dist"
+```
+
+`rootDir`：指定输入文件的根目录，便于保持目录结构。
+
+```json
+"rootDir": "./src"
+```
+
+`sourceMap`：生成 `.map` 文件，方便调试源代码。
+
+```json
+"sourceMap": true
+```
+
+`declaration`：生成 `.d.ts` 声明文件，方便其他项目引入。
+
+```json
+"declaration": true
+```
+
+### 4. 模块解析
+
+`baseUrl`：模块导入的基准目录。
+
+```json
+"baseUrl": "./"
+```
+
+`paths`：设置模块的别名，便于导入。例如将 `@` 指向 `src` 目录。
+
+```json
+"paths": {
+  "@/*": ["src/*"]
+}
+```
+`rootDirs`：指定多个根目录，把它们内容合并在一起。
+
+`resolveJsonModule`：允许从 `.json` 文件导入内容。
+
+### 5. 高级选项
+
+`incremental`：开启增量编译，编译器只会重新编译更改过的文件。
+
+```json
+"incremental": true
+```
+
+`noEmit`：不生成输出文件，通常用于仅进行类型检查。
+
+```json
+"noEmit": true
+```
+`skipLibCheck`：跳过对库文件（如 `node_modules` 中的声明文件）进行类型检查，可以提升编译速度。
+
+```json
+"skipLibCheck": true
+```
+
+## tsconfig.json 配置文件示例
+
+以下是一个用于项目开发的典型 `tsconfig.json` 示例：
+
+```json
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "sourceMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+## 其他配置
+`include` 和 `exclude`：用于控制编译的文件范围。
+`include`：指定要包含的文件或目录，支持通配符。
+`exclude`：指定要排除的文件或目录，通常会将 `node_modules` 和 `dist` 目录排除。
+
+```json
+"include": ["src/**/*"],
+"exclude": ["node_modules", "dist"]
+```

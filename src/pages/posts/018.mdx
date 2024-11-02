@@ -15,20 +15,22 @@ tags: ['Typescript', 'info']
 一个基本的 `tsconfig.json` 文件结构基本如下：
 
 ```json
-{
-  "compilerOptions": {
-    // 编译器选项
-  },
-  "include": [
-    // 包含的文件或文件夹
-  ],
-  "exclude": [
-    // 排除的文件或文件夹
-  ],
-  "files": [
-    // 要编译的文件列表
-  ]
-}
+
+  {
+    "compilerOptions": {
+      // 编译器选项
+    },
+    "include": [
+      // 包含的文件或文件夹
+    ],
+    "exclude": [
+      // 排除的文件或文件夹
+    ],
+    "files": [
+      // 要编译的文件列表
+    ]
+  }
+
 ```
 
 - `compilerOptions`：配置编译器的各种选项。
@@ -44,19 +46,25 @@ tags: ['Typescript', 'info']
 `target`：指定要编译的 JavaScript 版本。例如 `es5`、`es6`（也可写为 `es2015`）、`esnext`。
 
 ```json
-"target": "es6"
+
+  "target": "es6"
+
 ```
 
 `module`：指定生成的模块系统。例如 `commonjs`、`es6`、`amd` 等。
 
 ```json
-"module": "commonjs"
+
+  "module": "commonjs"
+
 ```
 
 `lib`：指定编译时包含的库。可以是 `es6`、`dom` 等。
 
 ```json
-"lib": ["es6", "dom"]
+
+  "lib": ["es6", "dom"]
+
 ```
 
 ### 2. 严格性检查
@@ -66,13 +74,17 @@ tags: ['Typescript', 'info']
 `noImplicitAny`：不允许隐式的 `any` 类型。
 
 ```json
-"noImplicitAny": true
+
+  "noImplicitAny": true
+
 ```
 
 `strictNullChecks`：启用严格的空值检查。
 
 ```json
-"strictNullChecks": true
+
+  "strictNullChecks": true
+
 ```
 
 `strictFunctionTypes`：启用对函数参数的严格检查。
@@ -84,25 +96,33 @@ tags: ['Typescript', 'info']
 `outDir`：指定输出文件的目录。
 
 ```json
-"outDir": "./dist"
+
+  "outDir": "./dist"
+
 ```
 
 `rootDir`：指定输入文件的根目录，便于保持目录结构。
 
 ```json
-"rootDir": "./src"
+
+  "rootDir": "./src"
+
 ```
 
 `sourceMap`：生成 `.map` 文件，方便调试源代码。
 
 ```json
-"sourceMap": true
+
+  "sourceMap": true
+
 ```
 
 `declaration`：生成 `.d.ts` 声明文件，方便其他项目引入。
 
 ```json
-"declaration": true
+
+  "declaration": true
+
 ```
 
 ### 4. 模块解析
@@ -110,15 +130,19 @@ tags: ['Typescript', 'info']
 `baseUrl`：模块导入的基准目录。
 
 ```json
-"baseUrl": "./"
+
+  "baseUrl": "./"
+
 ```
 
 `paths`：设置模块的别名，便于导入。例如将 `@` 指向 `src` 目录。
 
 ```json
-"paths": {
-  "@/*": ["src/*"]
-}
+
+  "paths": {
+    "@/*": ["src/*"]
+  }
+
 ```
 `rootDirs`：指定多个根目录，把它们内容合并在一起。
 
@@ -129,18 +153,24 @@ tags: ['Typescript', 'info']
 `incremental`：开启增量编译，编译器只会重新编译更改过的文件。
 
 ```json
-"incremental": true
+
+  "incremental": true
+
 ```
 
 `noEmit`：不生成输出文件，通常用于仅进行类型检查。
 
 ```json
-"noEmit": true
+
+  "noEmit": true
+
 ```
 `skipLibCheck`：跳过对库文件（如 `node_modules` 中的声明文件）进行类型检查，可以提升编译速度。
 
 ```json
-"skipLibCheck": true
+
+  "skipLibCheck": true
+
 ```
 
 ## tsconfig.json 配置文件示例
@@ -148,26 +178,28 @@ tags: ['Typescript', 'info']
 以下是一个用于项目开发的典型 `tsconfig.json` 示例：
 
 ```json
-{
-  "compilerOptions": {
-    "target": "es6",
-    "module": "commonjs",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "sourceMap": true,
-    "baseUrl": "./",
-    "paths": {
-      "@components/*": ["src/components/*"],
-      "@utils/*": ["src/utils/*"]
-    }
-  },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
-}
+
+  {
+    "compilerOptions": {
+      "target": "es6",
+      "module": "commonjs",
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "outDir": "./dist",
+      "rootDir": "./src",
+      "sourceMap": true,
+      "baseUrl": "./",
+      "paths": {
+        "@components/*": ["src/components/*"],
+        "@utils/*": ["src/utils/*"]
+      }
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+  }
+
 ```
 
 ## 其他配置
@@ -176,6 +208,8 @@ tags: ['Typescript', 'info']
 `exclude`：指定要排除的文件或目录，通常会将 `node_modules` 和 `dist` 目录排除。
 
 ```json
-"include": ["src/**/*"],
-"exclude": ["node_modules", "dist"]
+
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+
 ```

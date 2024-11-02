@@ -36,23 +36,29 @@ TypeScript 是一种为 JavaScript 添加了静态类型检查的编程语言，
 TypeScript 依赖于 Node.js。确保你已经安装了 Node.js 和 npm。
 
 ```bash
-# 检查 Node.js 和 npm 是否已安装
-node -v
-npm -v
+
+    # 检查 Node.js 和 npm 是否已安装
+    node -v
+    npm -v
+
 ```
 
 ### 安装 TypeScript
 在命令行中运行以下命令来安装 TypeScript：
 
 ```bash
-npm install -g typescript
+
+    npm install -g typescript
+
 ```
 
 ### 编译 TypeScript 文件
 创建一个名为 `index.ts` 的文件，然后运行以下命令将其编译为 JavaScript：
 
 ```bash
-tsc index.ts
+
+    tsc index.ts
+
 ```
 
 ## 基础语法
@@ -61,19 +67,23 @@ tsc index.ts
 TypeScript 使用 `let` 和 `const` 关键字来声明变量：
 
 ```typescript
-let name: string = 'John';
-const age: number = 30;
+
+    let name: string = 'John';
+    const age: number = 30;
+
 ```
 
 ### 基本类型
 常见的类型有：`string`、`number`、`boolean`、`array`、`tuple`、`enum`、`any` 等。
 
 ```typescript
-let isDone: boolean = false;
-let decimal: number = 6;
-let color: string = 'blue';
-let list: number[] = [1, 2, 3];
-let tuple: [string, number] = ['hello', 10];
+
+    let isDone: boolean = false;
+    let decimal: number = 6;
+    let color: string = 'blue';
+    let list: number[] = [1, 2, 3];
+    let tuple: [string, number] = ['hello', 10];
+
 ```
 
 ## 类型系统
@@ -82,23 +92,29 @@ let tuple: [string, number] = ['hello', 10];
 TypeScript 允许在变量声明时为变量指定类型。
 
 ```typescript
-let username: string = 'Alice';
+
+    let username: string = 'Alice';
+
 ```
 
 ### 类型推断
 当你不给变量指定类型时，TypeScript 会根据赋值内容进行类型推断。
 
 ```typescript
-let count = 5;  // count 的类型自动被推断为 number
+
+    let count = 5;  // count 的类型自动被推断为 number
+
 ```
 
 ### 联合类型
 联合类型可以表示多种类型的值。
 
 ```typescript
-let identifier: string | number;
-identifier = 'ABC123';
-identifier = 123;
+
+    let identifier: string | number;
+    identifier = 'ABC123';
+    identifier = 123;
+
 ```
 
 ## 接口与类型
@@ -107,27 +123,31 @@ identifier = 123;
 接口用于定义对象的结构。
 
 ```typescript
-interface Person {
-    name: string;
-    age: number;
-    greet(): void;
-}
 
-const person: Person = {
-    name: 'Alice',
-    age: 25,
-    greet() {
-        console.log('Hello!');
+    interface Person {
+        name: string;
+        age: number;
+        greet(): void;
     }
-};
+
+    const person: Person = {
+        name: 'Alice',
+        age: 25,
+        greet() {
+            console.log('Hello!');
+        }
+    };
+
 ```
 
 ### 类型别名
 类型别名和接口类似，但它们可以用于任何类型。
 
 ```typescript
-type ID = string | number;
-let userId: ID;
+
+    type ID = string | number;
+    let userId: ID;
+
 ```
 
 ## 类与继承
@@ -135,19 +155,21 @@ let userId: ID;
 TypeScript 支持 ES6 类，并且可以使用访问修饰符（`public`、`private`、`protected`）控制属性的访问权限。
 
 ```typescript
-class Animal {
-    constructor(public name: string) {}
-    
-    move(distance: number) {
-        console.log(`${this.name} moved ${distance}m.`);
-    }
-}
 
-class Dog extends Animal {
-    bark() {
-        console.log('Woof! Woof!');
+    class Animal {
+        constructor(public name: string) {}
+        
+        move(distance: number) {
+            console.log(`${this.name} moved ${distance}m.`);
+        }
     }
-}
+
+    class Dog extends Animal {
+        bark() {
+            console.log('Woof! Woof!');
+        }
+    }
+
 ```
 
 ## 泛型
@@ -155,11 +177,13 @@ class Dog extends Animal {
 泛型提供了在编写函数、接口或类时传递类型参数的功能，以便重用代码。
 
 ```typescript
-function identity<T>(arg: T): T {
-    return arg;
-}
 
-let output = identity<string>('Hello');
+    function identity<T>(arg: T): T {
+        return arg;
+    }
+
+    let output = identity<string>('Hello');
+
 ```
 
 ## 模块与命名空间
@@ -167,14 +191,16 @@ let output = identity<string>('Hello');
 模块是将代码划分为多个文件的方式，可以更好地管理代码。
 
 ```typescript
-// utils.ts
-export function add(a: number, b: number): number {
-    return a + b;
-}
 
-// main.ts
-import { add } from './utils';
-console.log(add(2, 3));
+    // utils.ts
+    export function add(a: number, b: number): number {
+        return a + b;
+    }
+
+    // main.ts
+    import { add } from './utils';
+    console.log(add(2, 3));
+
 ```
 
 ## 编译配置 (tsconfig)
@@ -182,13 +208,15 @@ console.log(add(2, 3));
 在项目根目录创建 `tsconfig.json` 文件以配置 TypeScript 编译选项：
 
 ```json
-{
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "strict": true
-  }
-}
+
+    {
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "strict": true
+    }
+    }
+
 ```
 
 运行 `tsc` 时会自动读取 `tsconfig.json` 中的配置。
@@ -200,9 +228,11 @@ console.log(add(2, 3));
 以下是一个类型安全的计算函数示例：
 
 ```typescript
-function calculateArea(width: number, height: number): number {
-    return width * height;
-}
 
-console.log(calculateArea(5, 10));  // 输出：50
+    function calculateArea(width: number, height: number): number {
+        return width * height;
+    }
+
+    console.log(calculateArea(5, 10));  // 输出：50
+
 ```

@@ -126,7 +126,8 @@ Markdown, 一种轻量级标记语言, 它应用非常简单的语法编写文�
 --------
 
 ### 代码、代码块,一个反引号（`）包裹的是行内代码，三个反引号（```）包裹的是多行代码块，并且支持缩进
-```
+
+```js
 
     `console.log('hello world')`
 
@@ -137,7 +138,7 @@ Markdown, 一种轻量级标记语言, 它应用非常简单的语法编写文�
  ## MDX, 一个可以包含组件和脚本的魔法
 MDX是将markdown语法与JSX语法结合起来，让我们能够在需要时使用`import`、`export`、`jsx`、`{}表达式`和自定义组件，比如下面的codeBlock中使用了script, 并引用了自定义组件CodeBlock
 
-```
+```tsx
 
     import CodeBlock from '../../components/CodeBlock.astro';
     export const config = `/** @type {import('tailwindcss').Config} */
@@ -156,6 +157,7 @@ MDX是将markdown语法与JSX语法结合起来，让我们能够在需要时使
 它的显示如下：
 
     <CodeBlock lang={'json'} code={config}></CodeBlock>
+
 
 这里包含了一些基础用法，有兴趣的可以参考<a className='text-orange-300' href='https://github.com/mdx-js/mdx' target='_blank'>官方文档</a>，查阅更多集成与使用方法
  

@@ -8,7 +8,6 @@ const sayHello(whois) => {
 }
 sayHello(name);
 `;
-import { slogons } from "../constants/slogons";
 const allPosts = await Astro.glob("./posts/*.md*");
 ---
 
@@ -17,16 +16,13 @@ const allPosts = await Astro.glob("./posts/*.md*");
 		<h1
 			class="text-gray-300 leading-relaxed justify-between flex flex-wrap"
 		>
-			<span class="text-gradient font-sans">程序员的开发日志</span><span
-				class="text-sm text-gray-400 mt-6 align-baseline"
-				>{slogons[Math.floor(Math.random() * slogons.length)]}</span
-			>
+			<span class="text-gradient font-sans">程序员的开发日志</span>
 		</h1>
 		<CodeBlock code={code} lang={"ts"} />
 		<div>最近更新</div>
 		<div class="bg-slate-300 rounded p-1 pl-5 pr-5 mt-4 mb-4">
 			{
-				allPosts.toReversed().slice(0,3).map((post) => (
+				allPosts.toReversed().slice(0,5).map((post) => (
 					<p class="flex justify-between"><a class="text-gray-800 font-medium hover:text-yellow-500" href={post.url}> # {post.frontmatter.title}</a><span class="text-gray-500">{post.frontmatter.pubDate?.toString().slice(0,10)}</span></p>
 				))
 			}

@@ -1,0 +1,143 @@
+---
+description: '在 React 中，组件生命周期是指组件从创建到销毁的完整过程。React 类组件和函数组件（使用 useEffect 等 Hook）具有不同的生命周期管理方式。以下主要介绍类组件生命周期的不同阶段。'
+layout: '../../layouts/MarkdownPostLayout.astro'
+title: 'React 生命周期'
+author: 'luludev.cn'
+keywords: 'react, jsx, tsx, component'
+pubDate: 2024-11-01
+tags: ['React', 'info']
+---
+
+## React 生命周期
+
+在 React 中，**组件生命周期**是指组件从创建到销毁的完整过程。React 类组件和函数组件（使用 `useEffect` 等 Hook）具有不同的生命周期管理方式。以下主要介绍类组件生命周期的不同阶段。
+
+## 1. 生命周期阶段概览
+
+React 类组件的生命周期分为三个主要阶段：
+
+- **挂载阶段 (Mounting)**：组件实例被创建并插入到 DOM 中。
+- **更新阶段 (Updating)**：组件的 Props 或 State 发生变化，触发组件重新渲染。
+- **卸载阶段 (Unmounting)**：组件从 DOM 中被移除。
+
+### 生命周期方法概览
+
+# React 生命周期方法一览
+
+React 的生命周期方法可以分为三大阶段：**挂载阶段**、**更新阶段**和**卸载阶段**。以下表格详细列出了各个阶段的方法及其用途。
+
+| 阶段           | 生命周期方法             | 描述                                     |
+
+|----------------|-------------------------|-------------------------------------------------------------------|
+
+| **挂载阶段**   | `constructor`            | 初始化组件状态和绑定方法，在组件实例化时调用，仅调用一次。                    |
+
+|                | `static getDerivedStateFromProps` | 在渲染前调用，用于从 `props` 更新 `state`，返回更新后的 `state` 或 `null`。       |
+
+|                | `render`                 | 渲染组件 UI，返回 JSX 或 `null`。                                       |
+
+|                | `componentDidMount`      | 组件挂载后调用，用于数据请求、事件监听等副作用操作，仅调用一次。                        |
+
+| **更新阶段**   | `static getDerivedStateFromProps` | 每次组件更新时调用，用于从 `props` 更新 `state`。返回新的 `state` 或 `null`。            |
+
+|                | `shouldComponentUpdate`  | 控制是否重新渲染组件，返回 `true`（重新渲染）或 `false`（不重新渲染）。               |
+
+|                | `render`                 | 重新渲染组件。                                                              |
+
+|                | `getSnapshotBeforeUpdate`| 更新前调用，用于在 DOM 变更前捕获某些信息，返回的值会作为 `componentDidUpdate` 的第三个参数。     |
+
+|                | `componentDidUpdate`     | 更新后调用，可以执行 DOM 操作、请求更新等副作用。                                               |
+
+| **卸载阶段**   | `componentWillUnmount`   | 组件卸载前调用，用于清理事件监听、取消网络请求等操作。                                         |
+
+
+---
+
+## 备注
+
+- **`render` 方法**：在每个更新中都必须执行，是唯一的必需方法。
+- **错误处理**：React 16+ 引入了新的错误处理方法 `componentDidCatch` 和 `static getDerivedStateFromError`，用于捕获子组件中的错误。
+- **`getDerivedStateFromProps`**：是静态方法，无法访问组件实例。
+
+---
+
+## 2. 各生命周期方法详解
+
+### 1. 挂载阶段
+
+#### `constructor(props)`
+- **触发时机**：组件创建时，最先执行。
+- **作用**：初始化 `state`，绑定方法。
+
+#### `static getDerivedStateFromProps(props, state)`
+- **触发时机**：组件挂载前或更新前调用。
+- **作用**：返回新的 `state`，基于传入的 `props` 更新状态。
+
+#### `render()`
+- **触发时机**：每次组件挂载和更新时调用。
+- **作用**：返回组件的 JSX 模板，是唯一必需的生命周期方法。
+
+#### `componentDidMount()`
+- **触发时机**：组件首次渲染并挂载到 DOM 后调用。
+- **作用**：适合执行异步操作，如数据请求、订阅事件。
+
+### 2. 更新阶段
+
+#### `static getDerivedStateFromProps(props, state)`
+- **作用**：同挂载阶段，用于更新前同步 `state`。
+
+#### `shouldComponentUpdate(nextProps, nextState)`
+- **触发时机**：组件接收到新的 Props 或 State 时调用。
+- **作用**：通过返回 `true` 或 `false`，决定是否重新渲染组件，适合优化性能。
+
+#### `render()`
+- **作用**：与挂载阶段相同，返回组件 UI。
+
+#### `getSnapshotBeforeUpdate(prevProps, prevState)`
+- **触发时机**：更新前调用，捕获更新前的 DOM 状态。
+- **作用**：通常用于在 `componentDidUpdate` 中使用快照信息（例如滚动位置）。
+
+#### `componentDidUpdate(prevProps, prevState, snapshot)`
+- **触发时机**：组件更新并重新渲染后调用。
+- **作用**：处理 DOM 操作、请求数据等更新后的操作。
+
+### 3. 卸载阶段
+
+#### `componentWillUnmount()`
+- **触发时机**：组件从 DOM 中移除前调用。
+- **作用**：执行清理操作，如取消事件监听、清除定时器等。
+
+---
+
+## 3. 函数组件中的生命周期替代方案
+
+在函数组件中，`useEffect` Hook 可以代替类组件中的大部分生命周期方法。
+
+```javascript
+
+  import React, { useEffect, useState } from 'react';
+
+  function ExampleComponent({ prop }) {
+    const [state, setState] = useState(0);
+
+    // componentDidMount 和 componentDidUpdate
+    useEffect(() => {
+      // 更新逻辑，或依赖 `prop` 和 `state` 的操作
+      console.log("Component updated");
+
+      return () => {
+        // componentWillUnmount 逻辑
+        console.log("Component will unmount");
+      };
+    }, [prop, state]); // 依赖项改变时执行
+  }
+
+```
+
+## 4. 生命周期示意图
+
+- 挂载阶段: constructor -> getDerivedStateFromProps -> render -> componentDidMount
+- 更新阶段: getDerivedStateFromProps -> shouldComponentUpdate -> render -> getSnapshotBeforeUpdate -> componentDidUpdate
+- 卸载阶段: componentWillUnmount
+
+组件的生命周期可以优化 React 组件的性能，更好地控制组件的渲染、更新及销毁过程。

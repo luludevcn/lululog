@@ -1,0 +1,170 @@
+---
+title: 'React 条件渲染'
+keywords: 'react, jsx, tsx, component'
+description: '在 React 中，条件渲染用于根据不同的条件来渲染不同的组件或元素。条件渲染的方式类似于 JavaScript 中的条件语句，React 提供了多种灵活的条件渲染方法，适用于不同的场景。'
+layout: '../../layouts/MarkdownPostLayout.astro'
+author: 'luludev.cn'
+pubDate: '2024-11-02'
+tags: ['React', 'info']
+---
+
+## React 条件渲染
+
+在 React 中，**条件渲染**用于根据不同的条件来渲染不同的组件或元素。条件渲染的方式类似于 JavaScript 中的条件语句，React 提供了多种灵活的条件渲染方法，适用于不同的场景。
+
+## 条件渲染的几种常见方式
+
+### 1. `if` 语句
+
+通过 `if` 语句，可以在函数组件内部根据条件渲染不同内容。
+
+```javascript
+
+  function Greeting({ isLoggedIn }) {
+    if (isLoggedIn) {
+      return <h1>Welcome back!</h1>;
+    } else {
+      return <h1>Please sign in.</h1>;
+    }
+  }
+
+```
+
+### 2. 三元运算符 ? :
+三元运算符 ? 非常适合在 JSX 中进行条件渲染，常用于简单条件的渲染。
+
+```javascript
+
+  function Greeting({ isLoggedIn }) {
+    return (
+      <h1>{isLoggedIn ? 'Welcome back!' : 'Please sign in.'}</h1>
+    );
+  }
+
+```
+### 3. && 短路运算符
+在 JSX 中可以利用 && 运算符，只在条件为 true 时渲染特定内容。适合需要在特定条件下渲染某一部分而无需 else 分支的情况。
+
+```javascript
+
+  function Message({ hasUnreadMessages }) {
+    return (
+      <div>
+        <h1>Welcome!</h1>
+        {hasUnreadMessages && <p>You have unread messages.</p>}
+      </div>
+    );
+  }
+
+```
+### 4. switch 语句
+
+switch 语句适用于多种条件下渲染不同内容的情况。例如，视用户状态不同显示不同的界面。
+
+```javascript
+
+  function UserStatus({ status }) {
+    switch (status) {
+      case 'online':
+        return <p>User is online</p>;
+      case 'offline':
+        return <p>User is offline</p>;
+      case 'busy':
+        return <p>User is busy</p>;
+      default:
+        return <p>Status unknown</p>;
+    }
+  }
+
+```
+### 5. 使用 Immediately Invoked Function Expression (IIFE)
+
+在某些场景中，可以使用 IIFE（立即调用函数表达式）在 JSX 中嵌入更复杂的条件逻辑。
+
+```javascript
+
+  function UserStatus({ status }) {
+    return (
+      <div>
+        {(() => {
+          if (status === 'online') return <p>User is online</p>;
+          if (status === 'offline') return <p>User is offline</p>;
+          return <p>Status unknown</p>;
+        })()}
+      </div>
+    );
+  }
+
+```
+## 高阶条件渲染示例
+
+### 1. 根据登录状态渲染组件
+
+通过条件渲染不同组件，可以实现类似于登录状态控制的功能。
+
+```javascript
+
+  function GuestGreeting() {
+    return <h1>Please sign up.</h1>;
+  }
+
+  function UserGreeting() {
+    return <h1>Welcome back!</h1>;
+  }
+
+  function Greeting({ isLoggedIn }) {
+    return isLoggedIn ? <UserGreeting /> : <GuestGreeting />;
+  }
+  
+```
+### 2. 条件渲染按钮
+
+根据用户的登录状态渲染不同按钮。
+
+```javascript
+
+  function LoginButton({ onClick }) {
+    return <button onClick={onClick}>Login</button>;
+  }
+
+  function LogoutButton({ onClick }) {
+    return <button onClick={onClick}>Logout</button>;
+  }
+
+  function AuthButton({ isLoggedIn, onLogin, onLogout }) {
+    return isLoggedIn ? (
+      <LogoutButton onClick={onLogout} />
+    ) : (
+      <LoginButton onClick={onLogin} />
+    );
+  }
+
+```
+### 3. 使用元素变量
+
+可以将要渲染的元素赋值给变量，并在 JSX 中使用该变量。这种方式在需要根据条件渲染不同的子组件时比较简洁。
+
+```javascript
+
+  function Greeting({ isLoggedIn }) {
+    let greetingMessage;
+
+    if (isLoggedIn) {
+      greetingMessage = <h1>Welcome back!</h1>;
+    } else {
+      greetingMessage = <h1>Please sign up.</h1>;
+    }
+
+    return greetingMessage;
+  }
+  
+```
+## 总结
+
+React 提供了多种灵活的条件渲染方式，根据项目需求可以选择不同的方式进行实现，合理运用这些方法可以让代码更加简洁、易读，提升开发效率。常见方法包括：
+
+- if 语句：适合简单条件判断。
+- 三元运算符：适合 JSX 中的条件渲染。
+- 短路运算符：用于在满足条件时渲染额外的内容。
+- switch 语句：适用于多条件分支渲染。
+- IIFE：适用于复杂条件判断逻辑。

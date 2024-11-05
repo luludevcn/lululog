@@ -1,18 +1,23 @@
 ---
-
+import Social from "./Social.astro";
 ---
 
-<style>
-  footer {
-    display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-</style>
+<div class="flex gap-4 justify-center font-mono font-bold divide-x-2">
+  <Social url="https://nextjscn.org/" title="NextJS"></Social>
+  <Social url="https://astro.build/" title="Astro"></Social>
+  <Social url="https://nutui.jd.com/" title="Nutui"></Social>
+  <Social url="https://www.tailwindcss.cn/" title="TailwindCss"></Social>
+  <Social url="https://react.dev/" title="React"></Social>
+  <Social url="https://nodejs.cn/en" title="NodeJS"></Social>
+  <Social url="https://www.tslang.cn/" title="TypeScript"></Social>
+</div>
+
+<div class="h-10"></div>
 
 <footer
-  class="fixed left-0 bottom-0 h-10 leading-9 bg-white w-full justify-center"
+  class="flex gap-4 mt-2 fixed left-0 bottom-0 h-10 leading-9 bg-white w-full justify-center"
 >
+
   <a
     class="flex mt-1"
     href="https://github.com/luludevcn/lululog"

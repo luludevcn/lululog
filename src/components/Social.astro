@@ -1,11 +1,4 @@
 ---
-const { platform, username } = Astro.props;
+const { url, title } = Astro.props;
 ---
-<a target="_blank" href={`https://www.${platform}.com/${username}`}>{platform}</a>
-<style>
-    a {
-      padding: 0.5rem 1rem;
-      color: rgb(135, 122, 122);
-      text-decoration: none;
-    }
-  </style>
+<a target="_blank" href={`${url}`}>{title}</a>

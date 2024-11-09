@@ -1,0 +1,228 @@
+---
+title: Javascript 比较两个Object
+description: 在JavaScript中，用来比较两个对象的是否相同，通常会用到instanceOf， object.keys, object.entires, 和第三方库比如loadash.
+layout: ../../layouts/MarkdownPostLayout.astro
+author: 'luludev.cn'
+keywords: 'Javascript, keys, entries, loadash, instanceOf'
+pubDate: 2024-11-04
+tags: ['Javascript']
+---
+## 1. 在 JavaScript 中，`instanceof` 是一个运算符，用于检查一个对象是否是某个构造函数的实例。它的主要用途是判断对象的原型链中是否存在指定构造函数的 `prototype`。
+
+### 基本语法
+
+```javascript
+
+  object instanceof Constructor
+
+```
+
+- `object` 是需要进行检查的对象。
+- `Constructor` 是用来检查的构造函数。
+
+### 返回值
+- 如果 `object` 的原型链中有 `Constructor.prototype`，则 `instanceof` 返回 `true`。
+- 否则，返回 `false`。
+
+### 示例
+
+1. **基本使用**
+
+   ```javascript
+
+    function Person(name) {
+        this.name = name;
+    }
+
+    const alice = new Person('Alice');
+
+    console.log(alice instanceof Person); // true
+    console.log(alice instanceof Object); // true (因为所有对象都继承自 Object)
+
+   ```
+
+2. **内置对象**
+
+   ```javascript
+
+    const arr = [1, 2, 3];
+    console.log(arr instanceof Array);   // true
+    console.log(arr instanceof Object);  // true (数组也是对象)
+
+   ```
+
+3. **与原型链有关**
+
+   `instanceof` 检查的是原型链中的关系，如果更改对象的原型关系，结果会随之变化：
+
+   ```javascript
+
+    function Animal() {}
+    const dog = new Animal();
+
+    console.log(dog instanceof Animal); // true
+
+    // 修改原型
+    Object.setPrototypeOf(dog, {});
+    console.log(dog instanceof Animal); // false
+
+   ```
+
+### 注意事项
+
+1. **原始类型**
+   `instanceof` 仅适用于引用类型（对象）。对于原始类型（例如字符串、数字、布尔值等），它不会起作用：
+
+   ```javascript
+
+    console.log('hello' instanceof String); // false
+
+   ```
+
+   如果需要判断原始类型，可以使用 `typeof`。
+
+2. **自定义类型检查**
+   `instanceof` 检查的是原型链，而不是对象的“类型”本身。如果需要更复杂的类型检查逻辑，可能需要结合 `typeof` 或 `Object.prototype.toString`。
+
+3. **跨作用域（跨 iframe）对象的问题**
+   当在不同的作用域（例如 iframe）中使用 `instanceof` 进行检查时，可能会遇到不一致的结果，因为每个 iframe 都有自己的全局对象和构造函数。这种情况下，可以使用 `Object.prototype.toString.call` 来更准确地识别类型。
+
+### 总结
+
+`instanceof` 是一个非常有用的运算符，用于检测一个对象是否是某个构造函数的实例。它依赖于对象的原型链，因此对所有引用类型的对象都有效。使用它可以方便地进行类型检查和验证继承关系。
+
+---
+
+## 2. `Object.keys` 和 `Object.entries` 都是 JavaScript 中用于遍历对象属性的方法，但它们有不同的用途和返回值格式：
+
+### `Object.keys`
+
+- **作用**：返回对象自身的可枚举属性的**键名数组**。
+- **返回格式**：返回一个数组，其中包含对象的所有键（属性名），以字符串形式。
+- **用途**：可以用于遍历对象的所有属性键。
+
+### 示例
+
+```javascript
+
+  const obj = { a: 1, b: 2, c: 3 };
+
+  console.log(Object.keys(obj));
+  // 输出: ["a", "b", "c"]
+
+```
+
+在这个例子中，`Object.keys(obj)` 返回了一个数组 `["a", "b", "c"]`，其中包含了对象 `obj` 的所有键名。
+
+### 使用场景
+
+一般用于仅需要对象的属性名时，可以用 `Object.keys` 配合 `forEach` 或 `for...of` 循环来遍历对象的所有键：
+
+```javascript
+
+  Object.keys(obj).forEach(key => {
+    console.log(key, obj[key]);
+  });
+  // 输出:
+  // a 1
+  // b 2
+  // c 3
+
+```
+
+## `Object.entries`
+
+- **作用**：返回对象自身的可枚举属性的**键值对数组**。
+- **返回格式**：返回一个数组，其中每一项是一个键值对数组 `[key, value]`。
+- **用途**：可以更方便地同时获取对象的键和值，特别适用于需要键值成对遍历的场景。
+
+### 示例
+
+```javascript
+
+  const obj = { a: 1, b: 2, c: 3 };
+
+  console.log(Object.entries(obj));
+  // 输出: [["a", 1], ["b", 2], ["c", 3]]
+
+```
+
+在这个例子中，`Object.entries(obj)` 返回了一个包含键值对的数组，即 `[["a", 1], ["b", 2], ["c", 3]]`。
+
+### 使用场景
+
+可以用 `Object.entries` 配合 `forEach` 或 `for...of` 来遍历键值对：
+
+```javascript
+
+  Object.entries(obj).forEach(([key, value]) => {
+    console.log(key, value);
+  });
+  // 输出:
+  // a 1
+  // b 2
+  // c 3
+  
+```
+
+### 总结
+
+| 方法            | 返回类型                   | 结果                                    | 典型用途                    |
+|-----------------|----------------------------|-----------------------------------------|-----------------------------|
+| `Object.keys`   | `string[]`                 | 属性名数组，例如 `["a", "b", "c"]`      | 只需要属性名的情况          |
+| `Object.entries`| `[string, any][]` (二维数组) | 键值对数组，例如 `[["a", 1], ...]` | 需要同时获取键和值的情况
+
+---
+
+## 3. 在 JavaScript 中，也可以使用 [Lodash](https://lodash.com/) 来比较两个对象的属性是否相同，可以使用 `_.isEqual` 方法。这是一个深度比较方法，可以递归地检查对象的每一个属性值是否相同。
+
+### 基本用法
+
+```javascript
+
+  const _ = require('lodash');
+
+  const object1 = { a: 1, b: { c: 2 } };
+  const object2 = { a: 1, b: { c: 2 } };
+
+  console.log(_.isEqual(object1, object2));  // 输出: true
+
+```
+
+在这个例子中，`_.isEqual` 会对 `object1` 和 `object2` 进行递归比较，即使 `b` 属性是一个嵌套对象，它也会继续比较其子属性，确保所有的值都匹配。
+
+### 仅比较特定属性
+
+如果你只想比较对象的某些特定属性，可以使用 `_.pick` 函数来选取这些属性，然后再用 `_.isEqual` 来比较它们：
+
+```javascript
+
+  const object1 = { a: 1, b: { c: 2, d: 3 }, e: 4 };
+  const object2 = { a: 1, b: { c: 2, d: 3 }, e: 5 };
+
+  // 只比较属性 'a' 和 'b.c'
+  const keysToCompare = ['a', 'b.c'];
+
+  const pickedObject1 = _.pick(object1, keysToCompare);
+  const pickedObject2 = _.pick(object2, keysToCompare);
+
+  console.log(_.isEqual(pickedObject1, pickedObject2));  // 输出: true
+
+```
+
+在这里，`_.pick` 可以提取出对象中的特定属性，从而只比较这些属性的值。
+
+### 自定义比较逻辑
+
+如果需要更灵活的控制，可以使用 `_.isMatch`，它可以判断第一个对象是否在指定属性上“匹配”第二个对象：
+
+```javascript
+
+  const object1 = { a: 1, b: { c: 2, d: 3 } };
+  const object2 = { b: { c: 2 } };
+
+  console.log(_.isMatch(object1, object2));  // 输出: true
+
+```
+
+在上面的代码中，`object1` 包含了 `object2` 所有的属性及其值，因此 `_.isMatch` 返回 `true`。

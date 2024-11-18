@@ -1,7 +1,6 @@
 import hljs from "highlight.js";
 import { useEffect, useRef, useState } from "react";
 import 'highlight.js/styles/monokai.min.css'
-import './override.css'
 
 export const JsonFormatter = () => {
     const [jsonData, setJsonData] = useState('');

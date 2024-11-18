@@ -13,7 +13,7 @@ const { href, title, body } = Astro.props;
 		<h2>
 			{title}
 		</h2>
-		<p class="text-gray-400">
+		<p>
 			{body}
 		</p>
 	</a>
@@ -37,7 +37,7 @@ const { href, title, body } = Astro.props;
 		line-height: 1.4;
 		padding: calc(1.5rem - 1px);
 		border-radius: 8px;
-		color: white;
+		color: #deebeb;
 		background-color: #23262d;
 		opacity: 0.8;
 	}
@@ -51,12 +51,6 @@ const { href, title, body } = Astro.props;
 		margin-top: 0.5rem;
 		margin-bottom: 0;
 	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
-	}
+
 
 </style>

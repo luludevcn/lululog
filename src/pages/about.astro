@@ -34,7 +34,7 @@ const contacts = [
 <Layout title="关于我">
   <main>
     <h1>Me</h1>
-    <div class="gap-4 text-gray-400 capitalize">
+    <div class="gap-4 capitalize">
       <p>一个全栈工程师</p>
       <p>React、Nodejs追随者</p>
       <p>因为接触过Java喜欢上了TypeScript</p>
@@ -45,7 +45,7 @@ const contacts = [
     <div class="flex flex-wrap gap-4">
       {
         skills.map((skill) => (
-          <span class="flex shadow-lg p-3 text-gray-400 capitalize bg-opacity-20 bg-pink-800 rounded">
+          <span class="flex shadow-lg p-3 capitalize bg-opacity-20 bg-pink-200 rounded">
             {skill}
           </span>
         ))
@@ -60,7 +60,7 @@ const contacts = [
           <a
             href={output.target}
             target="_blank"
-            class="flex shadow-lg p-3 text-gray-400 bg-opacity-20 bg-pink-800 rounded hover:underline"
+            class="flex shadow-lg p-3 bg-opacity-20 bg-pink-200 rounded hover:underline"
           >
             {output.label}
           </a>
@@ -78,7 +78,7 @@ const contacts = [
           <a
             href={contact.target}
             target="_blank"
-            class="flex shadow-lg p-3 text-gray-400 bg-opacity-20 bg-pink-800 rounded hover:underline"
+            class="flex shadow-lg p-3 bg-opacity-20 bg-pink-200 rounded hover:underline"
           >
             {contact.label}
           </a>

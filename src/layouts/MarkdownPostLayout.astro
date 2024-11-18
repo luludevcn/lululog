@@ -13,8 +13,8 @@ const { frontmatter } = Astro.props;
       <div class="flex flex-wrap">
         {
           frontmatter.tags.map((tag: any) => (
-            <p class="tag mx-1 rounded px-2 py-1 border-gray-400 border-dotted capitalize text-base border">
-              <a style="color: #9ca3af;" href={`/level/${tag}`}>{tag}</a>
+            <p class="tag mx-1 rounded px-2 py-1 border-gray-600 border-dotted capitalize text-base border">
+              <a href={`/level/${tag}`}>{tag}</a>
             </p>
           ))
         }
@@ -23,7 +23,7 @@ const { frontmatter } = Astro.props;
         {frontmatter.pubDate.toString().slice(0, 10)} by {frontmatter.author}
       </div>
     </div>
-    <div class="py-5 border-b border-gray-400">
+    <div class="py-5 border-b border-gray-600">
       <slot />
     </div>
     <hr/>

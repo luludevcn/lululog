@@ -1,11 +1,11 @@
 html {
-  background: #054b4d;
-  color: #f1f5f9;
+  background: #c1c9c9;
+  color: #23262d;
   font-family: 'mono fangsong';
 }
 
 a {
-  color: #9ca3af;
+  color: #23262d;
   text-decoration: none;
 }
 
@@ -27,7 +27,7 @@ body {
   width: 100%;
   top: 5rem;
   left: 48px;
-  background-color: #042231;
+  background-color: #23262d;
   display: none;
   margin: 0;
 }
@@ -45,8 +45,8 @@ body {
 
 .nav-links a:hover,
 .nav-links a:focus {
-  background-color: #dbbe7b;
-  color: #072c2a;
+  background-color: #c1c9c9;
+  color: #23262d;
 }
 
 .expanded {
@@ -83,30 +83,16 @@ body {
   width: 40px;
   height: 5px;
   margin-bottom: 10px;
-  background-color: #072c2a;
+  background-color: #23262d;
 }
 
-/* for dark */
-html.dark {
-  background-color: #070707;
-  color: #fff;
-}
-
-.dark .nav-links a {
-  color: #fff;
-}
-
-.dark .nav-links a:hover,
-.dark .nav-links a:focus {
-  background-color: #521c32;
-}
 
 main {
   margin: auto;
   padding: 1rem;
   width: 900px;
   max-width: calc(100% - 2rem);
-  color: #9ca3af;
+  color: #23262d;
   font-size: 16px;
   line-height: 1.6;
 }
@@ -114,16 +100,12 @@ main {
 h1 {
   font-size: 2rem;
   font-weight: 700;
-  color: burlywood;
   line-height: 1;
   text-align: left;
   margin-bottom: 1em;
   margin-top: 1em;
 }
 
-.dark h1 {
-  color: rgb(255, 255, 255);
-}
 
 :root {
   --accent: 136, 58, 234;
@@ -145,4 +127,28 @@ code {
     Bitstream Vera Sans Mono,
     Courier New,
     monospace;
+}
+
+
+/* for dark */
+html.dark {
+  background-color: #23262d;
+  color: #deebeb;
+}
+
+.dark .nav-links a {
+  color: #deebeb;
+}
+
+.dark .nav-links a:hover,
+.dark .nav-links a:focus {
+  background-color: #23262d;
+}
+
+.dark h1,.dark main,.dark a{
+  color: #deebeb;
+}
+
+.dark .hamburger .line {
+  background-color: #deebeb;
 }

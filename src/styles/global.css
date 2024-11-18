@@ -148,3 +148,7 @@ html.dark {
 .dark h1,.dark main,.dark a{
   color: #deebeb;
 }
+
+.dark .hamburger .line {
+  background-color: #deebeb;
+}

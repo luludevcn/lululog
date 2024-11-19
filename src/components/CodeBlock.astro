@@ -3,7 +3,6 @@ import { Code } from "astro:components";
 
 const frontmatter = Astro.props;
 ---
-
 <div class="instructions">
     <Code code={frontmatter.code} lang={frontmatter.lang} />
 </div>
@@ -13,8 +12,8 @@ const frontmatter = Astro.props;
         margin-bottom: 2rem;
         border: 1px solid rgba(var(--accent-light), 25%);
         background: linear-gradient(
-            rgba(var(--accent-dark), 66%),
-            rgba(var(--accent-dark), 66%)
+            rgba(var(--accent-dark), 99%),
+            rgba(var(--accent-dark), 99%)
         );
         padding: 1.5rem;
         border-radius: 8px;
@@ -22,7 +21,7 @@ const frontmatter = Astro.props;
     .instructions code {
         font-size: 0.8em;
         font-weight: bold;
-        background: rgba(var(--accent-light), 66%);
+        background: rgba(var(--accent-light), 99%);
         color: rgb(var(--accent-light));
         border-radius: 4px;
         padding: 0.3em 0.4em;

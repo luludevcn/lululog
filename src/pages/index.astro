@@ -2,11 +2,14 @@
 import Layout from "../layouts/Layout.astro";
 import Card from "../components/Card.astro";
 import CodeBlock from "../components/CodeBlock.astro";
-const code = `const name = 'Lulu dev';
-const sayHello(whois) => {
-	console.log('Welcome to ' + whois);
-}
-sayHello(name);
+import Code from "astro/components/Code.astro";
+const code = `	
+  const name = 'Lulu dev';
+  const sayHello(whois) => {
+    console.log('Welcome to ' + whois);
+  }
+  sayHello(name);
+
 `;
 const allPosts = await Astro.glob("./posts/*.md*");
 ---
@@ -18,7 +21,7 @@ const allPosts = await Astro.glob("./posts/*.md*");
 		>
 			<span class="font-sans">程序员的开发日志</span>
 		</h1>
-		<CodeBlock code={code} lang={"ts"} />
+		<Code code={code} lang={"ts"} />
 		<div>最近更新</div>
 		<div class="rounded p-1 pl-5 pr-5 mt-4 mb-4 border border-solid border-gray-500">
 			{
@@ -36,7 +39,7 @@ const allPosts = await Astro.glob("./posts/*.md*");
 				body="收录NodeJS开发过程中常见的工具、方法及问题"
 			/>
 			<Card
-				href="/level/debug/"
+				href="/level/discover/"
 				title="探秘系列"
 				body="尝试一些新东西，吃螃蟹还是踩坑，这不是问题"
 			/>
@@ -57,7 +60,7 @@ const allPosts = await Astro.glob("./posts/*.md*");
 		<div>我的世界</div>
 		<ul role="list" class="link-card-grid">
 			<Card
-				href="/level/开发以外"
+				href="/level/balance"
 				title="开发以外"
 				body="读书还是健身，文旅好过摆烂❤️"
 			/>

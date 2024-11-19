@@ -5,93 +5,9 @@ author: 'luludev.cn'
 keywords: 'Date, new Date, UTC, timezone'
 description: "JavaScript中Date强大的内置方法和第三方库"
 pubDate: 2022-10-03
-tags: ["Javascript","info"]
+tags: ["javascript"]
 ---
 
-import CodeBlock from '../../components/CodeBlock.astro';
-
-export const newDate = `// 获取当前日期和时间
-let now = new Date();
-
-// 使用时间戳创建日期对象（1970年1月1日以来的毫秒数）
-let dateFromTimestamp = new Date(1609459200000); // 2021-01-01
-
-// 使用指定日期字符串创建日期对象
-let dateFromString = new Date("2024-10-03");
-
-// 使用具体的年、月、日、时、分、秒、毫秒创建日期对象
-let dateFromValues = new Date(2024, 9, 3, 22, 30, 0, 0); // 注意：月份从0开始，所以10月用9表示
-`
-
-export const getDate = `let now = new Date();
-
-now.getFullYear();   // 获取年份，如：2024
-now.getMonth();      // 获取月份（0-11，0表示1月）
-now.getDate();       // 获取当月的第几天（1-31）
-now.getDay();        // 获取星期几（0表示星期日，6表示星期六）
-now.getHours();      // 获取小时（0-23）
-now.getMinutes();    // 获取分钟（0-59）
-now.getSeconds();    // 获取秒（0-59）
-now.getMilliseconds(); // 获取毫秒（0-999）
-`
-
-export const setDate = `let myDate = new Date();
-
-myDate.setFullYear(2025); // 设置年份为2025
-myDate.setMonth(11);      // 设置月份为12月
-myDate.setDate(25);       // 设置日期为25号
-myDate.setHours(15);      // 设置时间为下午3点
-`
-
-export const formatDate = `let now = new Date();
-
-// 使用 toLocaleDateString() 格式化日期
-let formattedDate = now.toLocaleDateString("en-US");  // 输出：10/3/2024
-
-// 使用 toLocaleTimeString() 格式化时间
-let formattedTime = now.toLocaleTimeString("en-US");  // 输出：10:30:00 PM
-
-// 使用 toISOString() 获取 ISO 格式的日期时间
-let isoDate = now.toISOString();  // 输出：2024-10-03T22:30:00.000Z
-`
-
-export const formatDate2 = `let year = now.getFullYear();
-let month = (now.getMonth() + 1).toString().padStart(2, "0");  // 月份需要补齐两位
-let day = now.getDate().toString().padStart(2, "0");
-
-let customFormattedDate = \`\${year}-\${month}-\${day}\`;  // 输出格式：2024-10-03
-`
-
-export const compareDate = `// 计算两个日期的差值
-let startDate = new Date("2024-01-01");
-let endDate = new Date("2024-12-31");
-
-let timeDifference = endDate - startDate;  // 差值是以毫秒为单位的
-let daysDifference = timeDifference / (1000 * 60 * 60 * 24);  // 将毫秒转换为天数
-
-// 给日期添加天数
-let currentDate = new Date();
-currentDate.setDate(currentDate.getDate() + 10);  // 日期加10天
-`
-
-export const utcDate = `let now = new Date();
-
-// 获取 UTC 时间
-let utcHours = now.getUTCHours();
-let utcDate = now.getUTCDate();
-
-// 将日期转换为 UTC ISO 字符串
-let utcIsoString = now.toISOString();  // 输出：2024-10-03T22:30:00.000Z
-`
-
-export const localeDate = `let now = new Date();
-
-// 格式化为英国日期
-let ukDate = now.toLocaleString("en-GB");  // 输出：03/10/2024, 22:30:00
-
-// 格式化为日本日期
-let jpDate = now.toLocaleString("ja-JP");  // 输出：2024/10/03 22:30:00
-`
 
 
 在 JavaScript 中，Date 常用于处理与时间和日期相关的操作。它可以获取当前时间、格式化日期，还能进行时间的计算，本文将全面介绍关于 Date 的使用方法和常见问题。
@@ -100,7 +16,21 @@ let jpDate = now.toLocaleString("ja-JP");  // 输出：2024/10/03 22:30:00
 
 JavaScript 提供了多种方式来创建一个 Date 对象：
 
-<CodeBlock lang={'ts'} code={newDate}></CodeBlock>
+```ts
+
+    // 获取当前日期和时间
+    let now = new Date();
+
+    // 使用时间戳创建日期对象（1970年1月1日以来的毫秒数）
+    let dateFromTimestamp = new Date(1609459200000); // 2021-01-01
+
+    // 使用指定日期字符串创建日期对象
+    let dateFromString = new Date("2024-10-03");
+
+    // 使用具体的年、月、日、时、分、秒、毫秒创建日期对象
+    let dateFromValues = new Date(2024, 9, 3, 22, 30, 0, 0); // 注意：月份从0开始，所以10月用9表示
+
+```
 
 ## Date 对象的常用方法
 
@@ -108,11 +38,33 @@ Date 对象提供了丰富的 API 用于获取和操作日期。以下是一些�
 
 获取当前时间的信息
 
-<CodeBlock lang={'ts'} code={getDate}></CodeBlock>
+```ts
+
+    let now = new Date();
+
+    now.getFullYear();   // 获取年份，如：2024
+    now.getMonth();      // 获取月份（0-11，0表示1月）
+    now.getDate();       // 获取当月的第几天（1-31）
+    now.getDay();        // 获取星期几（0表示星期日，6表示星期六）
+    now.getHours();      // 获取小时（0-23）
+    now.getMinutes();    // 获取分钟（0-59）
+    now.getSeconds();    // 获取秒（0-59）
+    now.getMilliseconds(); // 获取毫秒（0-999）
+
+```
 
 设置/修改日期和时间
 
-<CodeBlock lang={'ts'} code={setDate}></CodeBlock>
+```ts
+
+    let myDate = new Date();
+
+    myDate.setFullYear(2025); // 设置年份为2025
+    myDate.setMonth(11);      // 设置月份为12月
+    myDate.setDate(25);       // 设置日期为25号
+    myDate.setHours(15);      // 设置时间为下午3点
+
+```
 
 
 ## Date 格式化
@@ -121,29 +73,84 @@ JavaScript 没有内置的日期格式化函数，但可以通过 Date 方法手
 
 示例：自定义格式化日期
 
-<CodeBlock lang={'ts'} code={formatDate}></CodeBlock>
+```ts
+
+    let now = new Date();
+
+    // 使用 toLocaleDateString() 格式化日期
+    let formattedDate = now.toLocaleDateString("en-US");  // 输出：10/3/2024
+
+    // 使用 toLocaleTimeString() 格式化时间
+    let formattedTime = now.toLocaleTimeString("en-US");  // 输出：10:30:00 PM
+
+    // 使用 toISOString() 获取 ISO 格式的日期时间
+    let isoDate = now.toISOString();  // 输出：2024-10-03T22:30:00.000Z
+
+```
 
 自定义日期格式化
 
-<CodeBlock lang={'ts'} code={formatDate2}></CodeBlock>
+```ts
+
+    let year = now.getFullYear();
+    let month = (now.getMonth() + 1).toString().padStart(2, "0");  // 月份需要补齐两位
+    let day = now.getDate().toString().padStart(2, "0");
+
+    let customFormattedDate = \`\${year}-\${month}-\${day}\`;  // 输出格式：2024-10-03
+
+```
 
 ## 时间计算
 
 Date 对象还可以进行时间的加减运算，因为它内部存储的时间是以时间戳（1970年1月1日以来的毫秒数）表示的。通过加减毫秒数，你可以轻松地计算日期间的差值。
 
-<CodeBlock lang={'ts'} code={compareDate}></CodeBlock>
+```ts
+
+    // 计算两个日期的差值
+    let startDate = new Date("2024-01-01");
+    let endDate = new Date("2024-12-31");
+
+    let timeDifference = endDate - startDate;  // 差值是以毫秒为单位的
+    let daysDifference = timeDifference / (1000 * 60 * 60 * 24);  // 将毫秒转换为天数
+
+    // 给日期添加天数
+    let currentDate = new Date();
+    currentDate.setDate(currentDate.getDate() + 10);  // 日期加10天
+
+```
 
 ## timezone 和 UTC 时间
 
 默认情况下，Date 对象是根据系统的本地时区来创建和显示的。如果你想处理 UTC时间，可以使用以下方法：
 
-<CodeBlock lang={'ts'} code={utcDate}></CodeBlock>
+```ts
+
+    let now = new Date();
+
+    // 获取 UTC 时间
+    let utcHours = now.getUTCHours();
+    let utcDate = now.getUTCDate();
+
+    // 将日期转换为 UTC ISO 字符串
+    let utcIsoString = now.toISOString();  // 输出：2024-10-03T22:30:00.000Z
+
+```
 
 ## 国际化中的Date
 
 在国际化中，不同地区的时间显示格式是不一样的，JavaScript 的 toLocaleString() 方法允许你根据区域设置格式化日期，非常适用于国际化应用：
 
-<CodeBlock lang={'ts'} code={localeDate}></CodeBlock>
+```ts
+
+    let now = new Date();
+
+    // 格式化为英国日期
+    let ukDate = now.toLocaleString("en-GB");  // 输出：03/10/2024, 22:30:00
+
+    // 格式化为日本日期
+    let jpDate = now.toLocaleString("ja-JP");  // 输出：2024/10/03 22:30:00
+
+```
 
 ## 第三方库
 

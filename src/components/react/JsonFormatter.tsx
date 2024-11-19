@@ -52,12 +52,12 @@ export const JsonFormatter = () => {
 
             return (
                 <div style={{ position: "relative" }}>
-                    <button onClick={toggleExpand} style={{ display: "inline-block", textAlign:"center",width:"20px",height:"20px",lineHeight:"10px",position: "absolute", top: "5px", left: "-15px" }}>
+                    <button onClick={toggleExpand} style={{ display: "inline-block", textAlign:"center",width:"20px",height:"20px",lineHeight:"10px",position: "absolute", top: "10px", left: "-15px" }}>
                         {isExpanded ? '-' : '+'}
                     </button>
 
-                    <pre style={{ marginLeft: `${level * 10}px`, display: "inline-block" }}>
-                        <code ref={jsonNodeRef} className="json">
+                    <pre style={{margin:'5px', marginLeft: `${level * 10}px`, display: "inline-block" }}>
+                        <code ref={jsonNodeRef} className="json" style={{padding:'0.25em'}}>
                             {keyName && `"${keyName}": `}
                         </code>
                     </pre>
@@ -78,8 +78,8 @@ export const JsonFormatter = () => {
         }
 
         return (
-            <pre style={{ marginLeft: `${level * 10}px` }}>
-                <code ref={jsonNodeRef} className="json">
+            <pre style={{ margin:'5px',marginLeft: `${level * 10}px` }}>
+                <code ref={jsonNodeRef} className="json"  style={{padding:'0.25em'}}>
                     {keyName && `"${keyName}": `}
                     {typeof value === 'string' ? `"${value}"` : String(value)}
                 </code>

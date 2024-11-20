@@ -4,29 +4,15 @@ title: '关于ubuntu, linux服务器搭建静态博客网站的常用命令'
 author: 'luludev.cn'
 keywords: 'ubuntu, linux, mac, apt, brew, chmod, nginx, 环境搭建'
 description: "在ubuntu, linux, macos等系统中开发是非常爽的，然而它的桌面生态却不像Windows系统那样强大"
-# image:
-#   url: "https://docs.astro.build/default-og-image.png"
-#   alt: "The word astro against an illustration of planets and stars."
 pubDate: 2022-09-08
-tags: ['debug', '环境搭建']
+tags: ['node','nginx']
 ---
 
-import CodeBlock from '../../components/CodeBlock.astro';
 import {Image} from 'astro:assets';
 import lcoalImage1 from '../../../public/004-1.png';
 import lcoalImage2 from '../../../public/004-2.png'; 
 import lcoalImage3 from '../../../public/004-3.png';
-export const installCode = `// MacOS
-brew install node
-// ubantu
-sudo apt-get install -y nodejs
-`
-export const nginxCode = `sudo apt-get install ngnix
-// 检查nginx版本
-nginx -v
-// nginx启停
-sudo systemctl start/stop nginx
-`
+
 
 在ubuntu, linux, macos等系统中开发是非常爽的，然而它的桌面生态却不像Windows系统那样强大。
 
@@ -36,7 +22,7 @@ sudo systemctl start/stop nginx
 
 这里分享一些搭建环境时的常用命令，供大家参考。
 
-以腾讯轻量云服务器为例，免费试用版，有兴趣的同学可以拿来玩一玩，这里是腾讯云<a className='text-orange-300' href='https://cloud.tencent.com/act/pro/free' target='_blank'>申请链接</a>。
+以腾讯轻量云服务器为例，免费试用版，有兴趣的同学可以拿来玩一玩，这里是腾讯云[申请链接](https://cloud.tencent.com/act/pro/free)[申请链接]。
 
 当我登录到腾讯云的ubuntu服务器的时候，看到的就是这样的画面
 
@@ -44,7 +30,14 @@ sudo systemctl start/stop nginx
 
 而我现在要做的就是为我的服务安装nodejs18、Nginx，在macOS里安装会用到Homebrew,它是Mac平台下的软件包管理工具，可以安装、卸载、更新、搜索、查看相关软件，而在uuntu系统里，我将用到的是apt-get命令
 
-<CodeBlock lang={'ts'} code={installCode} />
+```bash
+
+    // MacOS
+    brew install node
+    // ubantu
+    sudo apt-get install -y nodejs
+
+```
 
 安装成功后查看NodeJS版本
 
@@ -52,11 +45,23 @@ sudo systemctl start/stop nginx
 
 一般对于静态web服务器，Nginx代理分发性能要比Tomcat好，所以我准备安装nginx作为静态博客网站的代理
 
-<CodeBlock lang={'ts'} code={nginxCode} />
+```bash
+
+    sudo apt-get install ngnix
+    // 检查nginx版本
+    nginx -v
+    // nginx启停
+    sudo systemctl start/stop nginx
+
+```
 
 查看nginx配置文件
 
-<CodeBlock lang={'ts'} code={`vi /etc/nginx/nginx.config`} />
+```bash
+
+    vi /etc/nginx/nginx.config
+
+```
 
 <Image src={lcoalImage3} alt="Terminal nginx配置文件" width={400} loading="lazy" />
 
@@ -66,17 +71,29 @@ www-data通常会是php, apache, nginx 等服务的用户，然而它的权限�
 
 这时就用到了chmod命令，赋予用户文件、文件夹读写和执行的权力，在此之前先查阅一下文件系统的权限分配
 
-<CodeBlock lang={'ts'} code={`ls -l`} />
+```bash
+
+    ls -l
+
+```
 
 你会发现输出的文件目录里有很多drwxrwxr-x这样的东西，其中d代表目录，-代表常规文件，然后出去第一个字符，从第二个开始，每三个为一组，依次表示所有者权限，组权限，其他用户权限，rwx分别代表可读、可写、可执行的权限，-代表无权限
 
 要赋予用户权限，看是否需要写的权限，如果不需要，为了安全，可以赋予读和执行权限
 
-<CodeBlock lang={'ts'} code={`sudo chmod -R 755 /path/to/www`} />
+```bash
+
+    sudo chmod -R 755 /path/to/www
+
+```
 
 如果需要写的权限
 
-<CodeBlock lang={'ts'} code={`sudo chmod -R 777 /path/to/www`} />
+```bash
+
+    sudo chmod -R 777 /path/to/www
+
+```
 
 -R是递归的执行当前目录和所有的子文件和子文件夹，还有比如常用的cp, rm，ls命令也可以用到-R
 

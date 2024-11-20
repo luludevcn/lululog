@@ -149,6 +149,10 @@ html.dark {
   color: #deebeb;
 }
 
+.dark .social-links a {
+  color: black;
+}
+
 .dark .hamburger .line {
   background-color: #deebeb;
 }

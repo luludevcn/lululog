@@ -1,0 +1,184 @@
+---
+layout: ../../../layouts/MarkdownPostLayout.astro
+title: Date Object In Javascript
+author: 'luludev.cn'
+keywords: 'Date, new Date, UTC, timezone'
+description: "In JavaScript, Date is commonly used to handle operations related to time and date. It can obtain the current time, format the date, and perform time calculation. This article will comprehensively introduce the usage and common problems of Date.
+"
+pubDate: 2022-10-03
+tags: ["javascript"]
+---
+
+In JavaScript, Date is commonly used to handle operations related to time and date. It can obtain the current time, format the date, and perform time calculation. This article will comprehensively introduce the usage and common problems of Date.
+
+## Create Date Object
+
+JavaScript provides multiple ways to create a Date object:
+
+```ts
+
+    // Get the current date and time
+    let now = new Date();
+
+    // Create a date object using a timestamp,
+    // milliseconds since January 1, 1970
+    let dateFromTimestamp = new Date(1609459200000); // 2021-01-01
+
+    // Create a date object using a specified date string
+    let dateFromString = new Date("2024-10-03");
+
+    // Create date objects using specific years, 
+    // months, days, hours, minutes, seconds, and milliseconds
+    // Note: The month starts from 0, so October is represented by 9
+    let dateFromValues = new Date(2024, 9, 3, 22, 30, 0, 0);
+
+```
+
+## Common methods for Date objects
+
+The Date object provides a rich API for obtaining and manipulating dates. Here are some common date methods:
+
+Get information about the current time
+
+```ts
+
+    let now = new Date();
+
+    now.getFullYear();   // Get the year, such as 2024
+    now.getMonth();      // Get month (0-11, 0 is January)
+    now.getDate();       // Get the day of the month (1-31)
+    now.getDay();        // Get the day of the week (0 is Sunday, 6 is Saturday)
+    now.getHours();      // Get hours (0-23)
+    now.getMinutes();    // Get minutes (0-59)
+    now.getSeconds();    // Get seconds (0-59)
+    now.getMilliseconds(); // Get milliseconds (0-999)
+
+```
+
+Set/modify date and time
+
+```ts
+
+    let myDate = new Date();
+
+    myDate.setFullYear(2025); // Set the year to 2025
+    myDate.setMonth(11);      // Set the month to December
+    myDate.setDate(25);       // Set the date to the 25th
+    myDate.setHours(15);      // Set the time to 3pm in the afternoon
+
+```
+
+
+## Date format
+
+JavaScript does not have a built-in date formatting function, but date formats can be manually concatenated using the Date method. Usually, we can use methods such as toLocaleDateString(), toLocaleTimeString(), or toISOString() to format dates.
+
+For Example: Custom Format Date
+
+```ts
+
+    let now = new Date();
+
+    // Format dates using toLocaleDateString()
+    let formattedDate = now.toLocaleDateString("en-US");  
+    // Output：10/3/2024
+
+    // Format time using toLocaleTimeString()
+    let formattedTime = now.toLocaleTimeString("en-US");  
+    // Output：10:30:00 PM
+
+    // Use toISOString() to obtain ISO formatted date and time
+    let isoDate = now.toISOString();  
+    // Output：2024-10-03T22:30:00.000Z
+
+```
+
+Custom Format Date
+
+```ts
+
+    let year = now.getFullYear();
+
+    // Two numbers need to be filled into month
+    let month = (now.getMonth() + 1).toString().padStart(2, "0");  
+    
+    let day = now.getDate().toString().padStart(2, "0");
+
+    let customFormattedDate = `\${year}-\${month}-\${day}`;  
+    // Output：2024-10-03
+
+```
+
+## Time calculation
+
+The Date object can also perform addition and subtraction operations on time, as the time stored internally is represented by timestamps (milliseconds since January 1, 1970). By adding or subtracting milliseconds, you can easily calculate the difference between dates.
+
+```ts
+
+    // Calculate the difference between two dates
+    let startDate = new Date("2024-01-01");
+    let endDate = new Date("2024-12-31");
+
+    // The difference is measured in milliseconds
+    let timeDifference = endDate - startDate;
+    
+    // Convert milliseconds to days
+    let daysDifference = timeDifference / (1000 * 60 * 60 * 24);  
+
+    // Add days to the date
+    let currentDate = new Date();
+
+    // Date plus 10 days
+    currentDate.setDate(currentDate.getDate() + 10);  
+
+```
+
+## timezone and UTC
+
+By default, Date objects are created and displayed based on the local time zone of the system. If you want to handle UTC time, you can use the following methods:
+
+```ts
+
+    let now = new Date();
+
+    // Get UTC time
+    let utcHours = now.getUTCHours();
+    let utcDate = now.getUTCDate();
+
+    // Convert date to UTC ISO string
+    let utcIsoString = now.toISOString();  
+    // Output：2024-10-03T22:30:00.000Z
+
+```
+
+## Internationalization of Date
+
+In internationalization, the time display format varies in different regions. The toLocaleStart() method in JavaScript allows you to format dates based on the region, which is very suitable for internationalization applications
+```ts
+
+    let now = new Date();
+
+    // Format as UK date
+    let ukDate = now.toLocaleString("en-GB");  
+    // Output：03/10/2024, 22:30:00
+
+    // Formulated as Japanese date
+    let jpDate = now.toLocaleString("ja-JP");  
+    // Output：2024/10/03 22:30:00
+
+```
+
+## Third party libraries
+
+
+Although the Date object is powerful, it can appear cumbersome in some complex date processing scenarios. Why not try the popular JavaScript date processing library:
+
+**[Moment.js](https://momentjs.cn/)**: Provides powerful date manipulation and formatting functions, but due to the large file size, the official has stopped updating.
+
+**[date-fns](https://date-fns.org/)**: Provide lightweight libraries with similar functionality, and modular design allows for on-demand loading.
+
+**[Luxon](https://luxon.nodejs.cn/)**: **[Moment.js](https://momentjs.cn/)**, The successor supports more modern APIs and time zone processing.
+
+## At the end
+
+The Date object is the fundamental tool in JavaScript for handling dates and times. Although it is feature rich, its operation can sometimes be complex, especially when dealing with time zones or complex date formats, which can be confusing. In practical development, whether dealing with the current time, calculating time differences, or formatting dates, mastering the various uses of Date objects, combined with external libraries, can effectively improve development efficiency and code readability.

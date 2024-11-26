@@ -36,7 +36,7 @@ const tags = Object.values(Tags);
     <h1 class="capitalize">{tag}</h1>
     <ul>
       {
-        posts.map(
+        posts.toReversed().map(
           (post: {
             url: any;
             frontmatter: { title: any; description: any; pubDate: any };

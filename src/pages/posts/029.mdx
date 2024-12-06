@@ -1,0 +1,362 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'JavaScript测试之Jasmine详细介绍'
+author: 'luludev.cn'
+keywords: 'Jasmine, unit test, describe, javascript, it'
+description: "Jasmine 是一个功能强大的 JavaScript 测试框架，特别适用于行为驱动开发（BDD）的测试风格。Jasmine 提供了开箱即用的断言库、Mock 功能和异步支持，无需额外依赖工具，适合测试 Node.js 和浏览器环境中的代码。"
+pubDate: 2024-12-01
+tags: ['javascript']
+---
+
+
+### **Jasmine 框架详细介绍**
+
+Jasmine 是一个功能强大的 JavaScript 测试框架，特别适用于行为驱动开发（BDD）的测试风格。Jasmine 提供了开箱即用的断言库、Mock 功能和异步支持，无需额外依赖工具，适合测试 Node.js 和浏览器环境中的代码。
+
+以下是 Jasmine 框架的详细讲解，包括安装、配置、基本用法和高级技巧。
+
+---
+
+### **1. Jasmine 的特点**
+1. **独立性强**：Jasmine 不依赖其他库，内置断言和 Mock 功能。
+2. **支持 BDD 测试风格**：以 `describe` 和 `it` 的方式组织测试。
+3. **异步支持**：内置异步测试方法，如 `done` 和 `async/await`。
+4. **浏览器和 Node.js 兼容**：可以在前后端通用。
+5. **快照和 Mock**：自带简单易用的 Mock 工具。
+
+---
+
+### **2. 安装与配置**
+
+#### **(1) 安装 Jasmine**
+在项目中安装 Jasmine：
+```bash
+
+  npm install --save-dev jasmine
+
+```
+
+#### **(2) 初始化项目**
+运行以下命令，生成 Jasmine 的配置文件：
+```bash
+
+  npx jasmine init
+
+```
+
+生成的文件结构：
+```plaintext
+
+  spec/
+    helpers/
+      jasmine.json  # 配置文件
+
+```
+
+#### **(3) 配置文件**
+`jasmine.json` 的内容：
+```json
+
+  {
+    "spec_dir": "spec",         // 测试文件目录
+    "spec_files": ["**/*[sS]pec.js"], // 测试文件匹配规则
+    "helpers": ["helpers/**/*.js"]   // 辅助文件目录
+  }
+
+```
+
+---
+
+### **3. 基本用法**
+
+#### **(1) 编写测试**
+
+**被测试代码：`calculator.js`**
+```javascript
+
+  function add(a, b) {
+    return a + b;
+  }
+
+  function subtract(a, b) {
+    return a - b;
+  }
+
+  module.exports = { add, subtract };
+
+```
+
+**测试代码：`calculator.spec.js`**
+```javascript
+
+  const { add, subtract } = require('../src/calculator');
+
+  describe('Calculator', () => {
+    it('should return 5 when adding 2 and 3', () => {
+      expect(add(2, 3)).toBe(5);
+    });
+
+    it('should return 1 when subtracting 3 from 4', () => {
+      expect(subtract(4, 3)).toBe(1);
+    });
+  });
+
+```
+
+运行测试：
+```bash
+
+  npx jasmine
+
+```
+
+输出：
+```plaintext
+
+  Calculator
+    ✓ should return 5 when adding 2 and 3
+    ✓ should return 1 when subtracting 3 from 4
+
+```
+
+---
+
+#### **(2) 组织测试**
+Jasmine 提供 `describe` 和 `it` 来组织测试用例：
+- **`describe`**：用于分组测试用例。
+- **`it`**：定义单个测试。
+
+示例：
+```javascript
+
+  describe('Math Operations', () => {
+    describe('Addition', () => {
+      it('should add two numbers correctly', () => {
+        expect(1 + 2).toBe(3);
+      });
+    });
+
+    describe('Subtraction', () => {
+      it('should subtract two numbers correctly', () => {
+        expect(5 - 3).toBe(2);
+      });
+    });
+  });
+
+```
+
+---
+
+### **4. 断言**
+
+Jasmine 提供丰富的断言方法：
+
+#### **(1) 基本匹配**
+```javascript
+
+  expect(4).toBe(4);            // 严格相等
+  expect(4).not.toBe(5);        // 不相等
+  expect({ a: 1 }).toEqual({ a: 1 }); // 深度相等
+
+```
+
+#### **(2) 数字匹配**
+```javascript
+
+  expect(10).toBeGreaterThan(5);
+  expect(5).toBeLessThan(10);
+  expect(0.1 + 0.2).toBeCloseTo(0.3, 5); // 浮点数比较
+
+```
+
+#### **(3) 字符串匹配**
+```javascript
+
+  expect('hello world').toContain('hello');
+  expect('JavaScript').toMatch(/script/i);
+
+```
+
+#### **(4) 异常捕获**
+```javascript
+
+  const throwError = () => { throw new Error('error'); };
+  expect(() => throwError()).toThrow();
+  expect(() => throwError()).toThrowError('error');
+
+```
+
+---
+
+### **5. 异步测试**
+
+#### **(1) 使用 `done` 回调**
+Jasmine 提供 `done` 回调来支持异步代码：
+```javascript
+
+  it('should fetch data', (done) => {
+    setTimeout(() => {
+      expect(1 + 1).toBe(2);
+      done();
+    }, 100);
+  });
+
+```
+
+#### **(2) 使用 `async/await`**
+推荐使用现代 `async/await` 语法：
+```javascript
+
+  it('should fetch data asynchronously', async () => {
+    const data = await Promise.resolve('data');
+    expect(data).toBe('data');
+  });
+
+```
+
+---
+
+### **6. Mock 功能**
+
+Jasmine 内置简单的 Mock 工具，用于模拟函数或依赖。
+
+#### **(1) Mock 函数**
+```javascript
+
+  const mockFn = jasmine.createSpy('mockFn');
+  mockFn(1, 2);
+
+  expect(mockFn).toHaveBeenCalled();
+  expect(mockFn).toHaveBeenCalledWith(1, 2);
+
+```
+
+#### **(2) 替换真实函数**
+```javascript
+
+  const obj = {
+    fetchData: () => 'real data',
+  };
+
+  spyOn(obj, 'fetchData').and.returnValue('mocked data');
+
+  expect(obj.fetchData()).toBe('mocked data');
+  expect(obj.fetchData).toHaveBeenCalled();
+
+```
+
+#### **(3) 异步 Mock**
+```javascript
+
+  spyOn(obj, 'fetchData').and.returnValue(Promise.resolve('mocked async data'));
+
+  obj.fetchData().then((data) => {
+    expect(data).toBe('mocked async data');
+  });
+
+```
+
+---
+
+### **7. 钩子函数**
+
+Jasmine 提供生命周期钩子来管理测试执行顺序：
+- **`beforeAll`**：在所有测试之前运行一次。
+- **`afterAll`**：在所有测试之后运行一次。
+- **`beforeEach`**：在每个测试之前运行。
+- **`afterEach`**：在每个测试之后运行。
+
+示例：
+```javascript
+
+  describe('Database Tests', () => {
+    beforeAll(() => {
+      console.log('Connect to database');
+    });
+
+    afterAll(() => {
+      console.log('Disconnect from database');
+    });
+
+    beforeEach(() => {
+      console.log('Start a transaction');
+    });
+
+    afterEach(() => {
+      console.log('Rollback transaction');
+    });
+
+    it('should insert data', () => {
+      expect(1).toBe(1);
+    });
+
+    it('should delete data', () => {
+      expect(2).toBe(2);
+    });
+  });
+
+```
+
+---
+
+### **8. 快照测试**
+
+Jasmine 支持手动实现快照测试，但需要结合其他工具（例如 Jest 更适合快照）。
+
+---
+
+### **9. 浏览器环境测试**
+
+Jasmine 也可以用于浏览器环境，使用 Jasmine 的 HTML 报告工具。
+1. 下载 Jasmine Standalone：
+   [Jasmine GitHub Releases](https://github.com/jasmine/jasmine/releases)
+2. 解压后，修改 `SpecRunner.html` 文件，添加测试脚本。
+
+---
+
+### **10. 调试与优化**
+
+#### **(1) 跳过或专注测试**
+- **跳过测试**：使用 `xit` 或 `xdescribe`。
+- **专注测试**：使用 `fit` 或 `fdescribe`。
+
+示例：
+```javascript
+
+  xdescribe('Skipped Tests', () => {
+    it('this test will not run', () => {
+      expect(true).toBe(false);
+    });
+  });
+
+  fdescribe('Focused Tests', () => {
+    it('this test will run', () => {
+      expect(true).toBe(true);
+    });
+  });
+
+```
+
+#### **(2) 控制测试超时**
+默认超时时间是 5 秒，可以通过以下方法修改：
+```javascript
+
+  jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // 10 秒
+
+```
+
+---
+
+### **11. 最佳实践**
+
+1. **测试独立性**：每个测试用例应相互独立，避免共享状态。
+2. **简洁清晰**：测试描述（`describe` 和 `it`）应清楚表达预期行为。
+3. **集成到 CI/CD**：将 Jasmine 测试集成到 CI/CD 流程中，确保代码质量。
+4. **结合工具**：与 Karma、Protractor 等工具结合，适用于复杂的前端测试场景。
+
+---
+
+### **12. 推荐资源**
+
+- **官方文档**：[Jasmine 官方网站](https://jasmine.github.io/)
+- **GitHub 仓库**：[Jasmine GitHub](https://github.com/jasmine/jasmine)

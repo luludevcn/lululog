@@ -1,0 +1,330 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'JavaScript Test之Jest详细介绍'
+author: 'luludev.cn'
+keywords: 'react, Jest, javascript, unit test, Facebook'
+description: "Jest 是 Facebook 开发的强大 JavaScript 测试框架，广泛应用于前端和后端项目（尤其是 React）。它功能强大、简单易用，并且支持许多现代测试功能，比如 Mock、快照测试、并行执行等。
+"
+pubDate: 2024-12-03
+tags: ['javascript']
+---
+
+
+### **Jest 框架详细讲解**
+
+Jest 是 Facebook 开发的强大 JavaScript 测试框架，广泛应用于前端和后端项目（尤其是 React）。它功能强大、简单易用，并且支持许多现代测试功能，比如 Mock、快照测试、并行执行等。
+
+以下是 Jest 的详细讲解，包括安装、配置、核心功能以及高级用法。
+
+---
+
+### **1. Jest 的特点**
+1. **简单易用**：内置断言库，开箱即用。
+2. **Mock 功能**：可以轻松 Mock 函数、模块或依赖。
+3. **快照测试**：适合验证 UI 组件的输出。
+4. **覆盖率报告**：生成全面的代码覆盖率报告。
+5. **高效**：并行执行测试，支持 Watch 模式。
+
+---
+
+### **2. 安装与基本配置**
+
+#### **(1) 安装 Jest**
+```bash
+
+  npm install --save-dev jest
+
+```
+
+#### **(2) 配置测试脚本**
+在 `package.json` 中添加：
+```json
+
+  "scripts": {
+    "test": "jest"
+  }
+
+```
+
+运行以下命令启动测试：
+```bash
+
+  npm test
+
+```
+
+#### **(3) Jest 配置文件**
+如果需要自定义配置，可以创建 `jest.config.js`：
+```javascript
+
+  module.exports = {
+    testEnvironment: "node", // 或 "jsdom"（用于浏览器环境）
+    collectCoverage: true,  // 生成覆盖率报告
+    verbose: true,          // 显示详细测试信息
+  };
+
+```
+
+---
+
+### **3. 基本用法**
+
+#### **(1) 测试语法**
+Jest 提供了一些简单的函数用于定义测试：
+- `test(name, fn)`：定义一个测试用例。
+- `describe(name, fn)`：分组测试用例。
+- `expect(value)`：断言函数，用于比较结果。
+
+示例代码：
+```javascript
+
+  // calculator.js
+  function add(a, b) {
+    return a + b;
+  }
+
+  module.exports = { add };
+
+  // calculator.test.js
+  const { add } = require('./calculator');
+
+  test('adds 1 + 2 to equal 3', () => {
+    expect(add(1, 2)).toBe(3);
+  });
+
+  describe('Calculator Tests', () => {
+    test('adds 2 + 3 to equal 5', () => {
+      expect(add(2, 3)).toBe(5);
+    });
+  });
+
+```
+
+运行测试：
+```bash
+
+  npm test
+
+```
+
+#### **(2) 断言方法**
+Jest 提供丰富的断言函数：
+- **基本匹配**
+  ```javascript
+
+    expect(4).toBe(4);           // 严格相等
+    expect(4).not.toBe(5);       // 不相等
+    expect({a: 1}).toEqual({a: 1}); // 深度相等
+
+  ```
+- **布尔值匹配**
+  ```javascript
+
+    expect(true).toBeTruthy();
+    expect(false).toBeFalsy();
+
+  ```
+- **数字匹配**
+  ```javascript
+
+    expect(10).toBeGreaterThan(5);
+    expect(5).toBeLessThan(10);
+    expect(0.1 + 0.2).toBeCloseTo(0.3, 5); // 浮点数比较
+
+  ```
+- **字符串匹配**
+  ```javascript
+
+    expect('hello').toMatch(/ell/);
+
+  ```
+- **数组与迭代器**
+  ```javascript
+
+    expect([1, 2, 3]).toContain(2);
+    expect(new Set([1, 2, 3])).toContain(3);
+
+  ```
+- **异常捕获**
+  ```javascript
+
+    const throwError = () => { throw new Error('error'); };
+    expect(() => throwError()).toThrow('error');
+
+  ```
+
+---
+
+### **4. Mock 功能**
+
+Mock 是 Jest 的核心功能之一，用于模拟函数、模块或依赖。
+
+#### **(1) Mock 函数**
+模拟函数行为：
+```javascript
+
+  const mockFn = jest.fn();
+
+  mockFn.mockReturnValue(10);
+  mockFn.mockImplementation((x) => x * 2);
+
+  test('mock function test', () => {
+    expect(mockFn(5)).toBe(10); // 使用实现逻辑
+  });
+
+```
+
+#### **(2) Mock 模块**
+假设有一个 API 模块 `api.js`：
+```javascript
+
+  // api.js
+  module.exports = {
+    fetchData: () => Promise.resolve('real data'),
+  };
+
+```
+
+在测试中 Mock 该模块：
+```javascript
+
+  jest.mock('./api', () => ({
+    fetchData: jest.fn(() => Promise.resolve('mocked data')),
+  }));
+
+  const { fetchData } = require('./api');
+
+  test('fetchData returns mocked data', async () => {
+    const data = await fetchData();
+    expect(data).toBe('mocked data');
+  });
+
+```
+
+---
+
+### **5. 异步代码测试**
+
+测试异步函数时，可以使用以下方式：
+
+#### **(1) 使用 `done` 回调**
+```javascript
+
+  test('async test using done', (done) => {
+    setTimeout(() => {
+      expect(1).toBe(1);
+      done();
+    }, 100);
+  });
+
+```
+
+#### **(2) 使用 `async/await`**
+```javascript
+
+  test('async test using async/await', async () => {
+    const data = await Promise.resolve('async data');
+    expect(data).toBe('async data');
+  });
+
+```
+
+#### **(3) 使用 `.resolves` 和 `.rejects`**
+```javascript
+
+  test('async resolves', () => {
+    return expect(Promise.resolve('resolved')).resolves.toBe('resolved');
+  });
+
+  test('async rejects', () => {
+    return expect(Promise.reject('error')).rejects.toBe('error');
+  });
+
+```
+
+---
+
+### **6. 快照测试**
+
+快照测试常用于验证 UI 组件的输出。例如：
+```javascript
+
+  // component.js
+  const render = (name) => `<div>Hello, ${name}</div>`;
+  module.exports = render;
+
+  // component.test.js
+  const render = require('./component');
+
+  test('renders correctly', () => {
+    expect(render('World')).toMatchSnapshot();
+  });
+
+```
+
+运行测试时，Jest 会生成一个快照文件。如果输出改变，会提示更新快照：
+```bash
+
+  npm test -u
+
+```
+
+---
+
+### **7. 覆盖率报告**
+
+在 `jest.config.js` 中启用覆盖率：
+```javascript
+
+  module.exports = {
+    collectCoverage: true,
+    coverageDirectory: "coverage",
+  };
+
+```
+
+运行以下命令生成覆盖率报告：
+```bash
+
+  npm test --coverage
+
+```
+
+生成的报告将显示测试覆盖的文件和行数。
+
+---
+
+### **8. Watch 模式**
+
+启用 Watch 模式自动检测文件变更：
+```bash
+
+  npm test --watch
+
+```
+
+---
+
+### **9. 性能优化**
+
+1. **并行测试**：Jest 默认支持多线程执行。
+2. **选择性测试**：
+   - 运行特定文件：`npm test -- math.test.js`
+   - 使用 `only`：
+     ```javascript
+
+      test.only('runs this test', () => {
+        expect(1).toBe(1);
+      });
+
+     ```
+
+---
+
+### **10. 总结**
+
+Jest 是一个功能丰富且易用的 JavaScript 测试框架，非常适合现代 Web 应用开发中的单元测试、集成测试和快照测试。通过熟练掌握 Mock、快照和覆盖率等功能，可以极大提升代码的健壮性和开发效率。
+
+**推荐学习资源：**
+- 官方文档：[https://jestjs.io](https://jestjs.io)
+- 在线教程：[Learn Jest on FreeCodeCamp](https://www.freecodecamp.org/)

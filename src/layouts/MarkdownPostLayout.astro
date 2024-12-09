@@ -4,14 +4,26 @@ import Layout from "./Layout.astro";
 
 const { frontmatter } = Astro.props;
 const num = Astro.props.url.split('/').pop();
-const allPosts: any = await Astro.glob("../pages/posts/en/*.md*");
+const allENPosts: any = await Astro.glob("../pages/posts/en/*.md*");
+const allCNPosts: any = await Astro.glob("../pages/posts/*.md*");
 let hasEN = false;
-allPosts.map((post: any)=>{
+allENPosts.map((post: any)=>{
   const postNum = post.url.split('/').pop();
   if (postNum == num){
       hasEN = true;
   }
-})
+});
+
+console.log(allCNPosts.length, num);
+let prev = null, next = null;
+if(num == allCNPosts.length) {
+  prev = allCNPosts.length-1;
+} else if(num == 1) {
+  next = parseInt(num) + 1;
+} else {
+  prev = parseInt(num) - 1;
+  next = parseInt(num) + 1;
+}
 ---
 
 <Layout title={frontmatter.title} keywords={frontmatter.keywords} description={frontmatter.description}>
@@ -39,5 +51,10 @@ allPosts.map((post: any)=>{
       <slot />
     </div>
     <hr/>
+    <div class="flex justify-between">
+      {prev? <div><a href=`/posts/${prev.toString().padStart(3,'0')}`><<上一篇</a></div>: null}
+    
+    {next?<div><a href=`/posts/${next.toString().padStart(3,'0')}`>下一篇>></a></div>: null}
+    </div>
   </main>
 </Layout>

@@ -1,0 +1,330 @@
+---
+layout: ../../layouts/MarkdownPostLayout.astro
+title: 'Nginx 详细使用介绍'
+author: 'luludev.cn'
+keywords: 'ubuntu, linux, mac, apt, brew, chmod, nginx, 环境搭建'
+description: "Nginx（engine x） 是一个高性能的 Web 服务器和反向代理服务器，同时支持邮件代理功能和负载均衡。它以高并发、高可靠性和低内存消耗而闻名，广泛应用于各类互联网服务。
+"
+pubDate: 2022-12-09
+tags: ['nginx']
+---
+
+
+**Nginx（"engine x"）** 是一个高性能的 Web 服务器和反向代理服务器，同时支持邮件代理功能和负载均衡。它以高并发、高可靠性和低内存消耗而闻名，广泛应用于各类互联网服务。
+
+---
+
+## 一、Nginx 的安装
+
+### 1. 安装 Nginx
+#### 在 Linux 上
+**Ubuntu/Debian 系统：**
+```bash
+
+    sudo apt update
+    sudo apt install nginx
+
+```
+
+**CentOS/RHEL 系统：**
+```bash
+
+    sudo yum install epel-release
+    sudo yum install nginx
+
+```
+
+#### 在 macOS 上
+使用 Homebrew：
+```bash
+
+    brew install nginx
+
+```
+
+#### 在 Windows 上
+Nginx 在 Windows 上的支持有限，建议从 [官方站点](http://nginx.org/en/download.html) 下载二进制包。
+
+### 2. 验证安装
+启动 Nginx 并查看版本：
+```bash
+
+    nginx -v
+
+```
+
+检查服务是否运行：
+```bash
+
+    curl http://localhost
+
+```
+
+---
+
+## 二、Nginx 的基本配置
+
+Nginx 的主配置文件通常位于 `/etc/nginx/nginx.conf`（Linux 环境），主配置文件包括以下核心部分：
+
+### 1. 配置文件结构
+```nginx
+
+    # 主配置部分
+    user www-data;                # 工作用户
+    worker_processes auto;        # 工作进程数
+
+    # 全局错误日志和 PID 文件
+    error_log /var/log/nginx/error.log;
+    pid /run/nginx.pid;
+
+    events {
+        worker_connections 1024;  # 每个进程的最大连接数
+    }
+
+    http {
+        include /etc/nginx/mime.types;   # 包含 MIME 类型文件
+        default_type application/octet-stream;
+
+        # 日志设置
+        access_log /var/log/nginx/access.log;
+
+        # 发送文件优化
+        sendfile on;
+
+        # Keep-alive 设置
+        keepalive_timeout 65;
+
+        # 配置虚拟主机
+        include /etc/nginx/conf.d/*.conf;
+    }
+
+```
+
+---
+
+## 三、常用配置实例
+
+### 1. 配置静态网站
+```nginx
+
+    server {
+        listen 80;                        # 监听端口
+        server_name example.com;          # 域名
+
+        root /var/www/html;               # 网站根目录
+        index index.html index.htm;       # 默认文件
+
+        location / {
+            try_files $uri $uri/ =404;    # 请求文件存在则返回文件，否则 404
+        }
+    }
+
+```
+
+将网站文件存放在 `/var/www/html` 目录即可。
+
+### 2. 配置反向代理
+```nginx
+
+    server {
+        listen 80;
+        server_name api.example.com;
+
+        location / {
+            proxy_pass http://127.0.0.1:3000;  # 转发到后端服务
+            proxy_set_header Host $host;       # 保留原始 Host 头
+            proxy_set_header X-Real-IP $remote_addr;  # 客户端真实 IP
+        }
+    }
+
+```
+
+### 3. 配置负载均衡
+```nginx
+
+    upstream backend {
+        server 127.0.0.1:3000 weight=3;  # 主服务
+        server 127.0.0.1:3001;           # 次服务
+    }
+
+    server {
+        listen 80;
+        server_name loadbalancer.example.com;
+
+        location / {
+            proxy_pass http://backend;
+        }
+    }
+
+```
+
+### 4. 配置 HTTPS
+#### 获取证书
+可以使用 Let’s Encrypt 免费获取证书：
+```bash
+
+    sudo apt install certbot python3-certbot-nginx
+    sudo certbot --nginx -d example.com
+
+```
+
+#### 配置 HTTPS
+Nginx 的 HTTPS 配置示例如下：
+```nginx
+
+    server {
+        listen 443 ssl;
+        server_name example.com;
+
+        ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+
+        location / {
+            root /var/www/html;
+            index index.html;
+        }
+    }
+
+    server {
+        listen 80;
+        server_name example.com;
+
+        return 301 https://$host$request_uri;  # 重定向到 HTTPS
+    }
+
+```
+
+---
+
+## 四、高级功能配置
+
+### 1. 缓存配置
+#### 配置静态资源缓存
+```nginx
+
+    location ~* \.(jpg|jpeg|png|gif|css|js|ico|svg|woff|woff2|ttf|otf|eot)$ {
+        expires 7d;               # 缓存 7 天
+        access_log off;           # 关闭访问日志
+    }
+
+```
+
+### 2. 防盗链配置
+```nginx
+
+    location /images/ {
+        valid_referers none blocked *.example.com;
+        if ($invalid_referer) {
+            return 403;  # 禁止访问
+        }
+    }
+
+```
+
+### 3. 限流配置
+```nginx
+
+    http {
+        limit_req_zone $binary_remote_addr zone=one:10m rate=10r/s;
+
+        server {
+            location /api/ {
+                limit_req zone=one burst=5;
+            }
+        }
+    }
+
+```
+
+### 4. 动静分离
+将动态请求转发到后端服务，静态文件由 Nginx 直接处理：
+```nginx
+
+    server {
+        location / {
+            proxy_pass http://127.0.0.1:8000;  # 动态请求
+        }
+
+        location /static/ {
+            root /var/www/html;               # 静态文件目录
+        }
+    }
+
+```
+
+---
+
+## 五、管理 Nginx 服务
+
+### 启动和停止 Nginx
+```bash
+
+    sudo systemctl start nginx
+    sudo systemctl stop nginx
+    sudo systemctl restart nginx
+    sudo systemctl reload nginx  # 平滑重载配置
+
+```
+
+### 测试配置文件
+每次修改配置文件后，建议先测试：
+```bash
+
+    sudo nginx -t
+
+```
+
+---
+
+## 六、日志分析和排查问题
+
+### 日志路径
+- 访问日志：`/var/log/nginx/access.log`
+- 错误日志：`/var/log/nginx/error.log`
+
+### 自定义日志格式
+```nginx
+
+    http {
+        log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+                        '$status $body_bytes_sent "$http_referer" '
+                        '"$http_user_agent" "$http_x_forwarded_for"';
+
+        access_log /var/log/nginx/access.log main;
+    }
+
+```
+
+---
+
+## 七、Nginx 的优化
+
+### 1. 增加 Worker 数
+根据 CPU 核数设置：
+```nginx
+
+    worker_processes auto;
+
+```
+
+### 2. 文件传输优化
+启用 `sendfile` 和缓存：
+```nginx
+
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+
+```
+
+### 3. 压缩传输
+```nginx
+
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml;
+
+```
+
+---
+
+Nginx 是一款强大而灵活的服务器软件，上述配置涵盖了最常见的使用场景。如果需要更复杂的功能，比如动态模块加载或与第三方工具结合，Nginx 也能很好地支持。
